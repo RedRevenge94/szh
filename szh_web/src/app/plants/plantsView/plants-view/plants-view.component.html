@@ -1,0 +1,9 @@
+<div *ngFor="let plant of plants">
+  <div class="infoBoxHeader">{{plant.name}}</div>
+  <div class="infoBox">
+    Odmiany ({{plant.varieties.length}}): <br />
+    <ul>
+      <li *ngFor="let variety of plant.varieties">{{variety.name}}</li>
+    </ul>
+  </div>
+</div>

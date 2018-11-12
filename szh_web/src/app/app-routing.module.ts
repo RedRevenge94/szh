@@ -6,6 +6,7 @@ import { CultivationsComponent } from './cultivations/cultivations-list/cultivat
 import { AvrdevicesComponent } from './avrdevices/avrdevices.component';
 import { CultivationViewComponent } from './cultivations/cultivation-view/cultivation-view.component';
 import { TunnelDetailsComponent } from './tunnels/tunnelDetailsView/tunnel-details.component';
+import { PlantsViewComponent } from './plants/plantsView/plants-view/plants-view.component';
 
 const routes: Routes = [
   {
@@ -27,6 +28,10 @@ const routes: Routes = [
   {
     path: 'cultivation/:id',
     component: CultivationViewComponent
+  },
+  {
+    path: 'plants',
+    component: PlantsViewComponent
   },
   {
     path: 'avrdevices',

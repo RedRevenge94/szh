@@ -8,6 +8,7 @@ namespace szh.cultivation {
         #region -----------------DbValues-----------------
         public int id;
         public string name;
+        public List<Variety> varieties;
         #endregion
 
         public static Plant CreatePlant(string name) {
@@ -25,7 +26,17 @@ namespace szh.cultivation {
             return newPlant;
         }
 
-        public static List<Plant> GetPlants() => GetPlants($"select * from cultivation.plants");
+        public static List<Plant> GetPlants() {
+
+            List<Plant> plants = GetPlants($"select * from cultivation.plants");
+
+            foreach (Plant plant in plants) {
+                plant.varieties = Variety.GetVarietiesForPlant(plant.id);
+            }
+
+            return plants;
+        }
+
 
         public static Plant GetPlant(int plantId) => GetPlants($"select * from cultivation.plants where id = {plantId}")[0];
 

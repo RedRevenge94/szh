@@ -9,16 +9,16 @@ body {
     font-family: 'Raleway', 'Arial';
     color:#fff;
 }
-ul {
+#menu ul {
     list-style-type:none;
     margin:0 0 2em 0;
     padding:0;
 }
-ul li {
+#menu ul li {
     display:inline;
     margin-right: 30px;
 }
-ul li a {
+#menu ul li a {
     font-size: 1.5em;
 }
 a {
@@ -128,4 +128,8 @@ input.btn {
     padding: 30px;
     line-height: 1.6;
     border: 5px rgb(36, 40, 43) solid;
+}
+
+.infoBox li{
+    font-size: 13px;
 }
