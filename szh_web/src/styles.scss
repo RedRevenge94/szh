@@ -1,0 +1,131 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import url('https://fonts.googleapis.com/css?family=Raleway:300,700');
+
+body {
+    //background:#2E9CE6;
+    background:rgb(148, 184, 207);
+    padding: 3em;
+    font-family: 'Raleway', 'Arial';
+    color:#fff;
+}
+ul {
+    list-style-type:none;
+    margin:0 0 2em 0;
+    padding:0;
+}
+ul li {
+    display:inline;
+    margin-right: 30px;
+}
+ul li a {
+    font-size: 1.5em;
+}
+a {
+    color:#fff;
+    text-decoration:none;
+}
+
+.OnlineText{
+    color: #99FF99;
+}
+
+.OfflineText{
+    color: rgb(253, 63, 63);
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+table, th, td {
+    border: 1px solid black;
+}
+
+tr:first-child { 
+    background-color: #0E7BC5;
+}
+
+td {
+    padding: 5px;
+}
+////
+
+////
+
+.container {
+    display: grid;
+    grid-template-columns: 25% 25% 25% 25%;
+}
+
+.col {
+    padding: .4em 1.3em;
+}
+.color-dark {
+    background: #2885C4;
+}
+.color-light {
+    background: #57B3F1;
+}
+.color-light :hover {
+    //background: #50ABE9;
+}
+
+form{
+    margin-top: 30px;
+}
+
+select{
+    border: 0;
+    padding: 1em;
+    width: 40%;
+    margin-bottom: 2em;
+}
+
+input.txt {
+    border: 0;
+    padding: 1em;
+    width: 40%;
+    margin-bottom: 2em;
+}
+input.btn {
+    border: 0;
+    display:block;
+    padding:1em 3em;
+    background:#A5F883;
+    color:#003A61;
+    margin-bottom:1em;
+    cursor:pointer;
+}
+.life-container {
+    background:#3FA0E1;
+    padding:.5em;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.chart{
+    width: 60%;
+}
+
+.moreLink:hover{
+    color:#eee;
+}
+
+
+.infoBoxHeader{
+    background: rgb(36, 40, 43);
+    color: #A5F883;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 15px;
+    margin-top: 30px;
+}
+
+.infoBox{
+    background: rgb(128, 164, 187);
+    padding: 30px;
+    line-height: 1.6;
+    border: 5px rgb(36, 40, 43) solid;
+}

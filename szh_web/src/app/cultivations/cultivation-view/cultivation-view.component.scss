@@ -1,0 +1,22 @@
+.cultivationInfo{
+    background-color: rgb(44, 149, 219);
+    padding: 15px 15px 15px 35px;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.cultivationInfoComments{
+    padding: 15px;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: 100% ;
+}
+
+.color-dark {
+    color: #A5F883;
+    font-size: 18px;
+    font-weight: bold;
+    padding-top: 0px;
+}

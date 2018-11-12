@@ -1,0 +1,19 @@
+.cultivationInfo{
+    background-color: rgb(44, 149, 219);
+    padding: 15px;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+.cultivationInfo:hover{
+    background-color: #1D8BD5;
+}
+
+.cultivationInfoComments{
+    padding: 15px;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: 12.5% 12.5% 12.5% 12.5% 12.5% 12.5% 12.5% 12.5%;
+}

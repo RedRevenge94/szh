@@ -1,0 +1,89 @@
+<div class="container color-dark">
+  <div class="col">
+    <p>Name</p>
+  </div>
+  <div class="col">
+    <p>Plant </p>
+  </div>
+  <div class="col">
+    <p>Variety </p>
+  </div>
+  <div class="col">
+    <p>Pieces </p>
+  </div>
+  <div class="col">
+    <p>Tunnel </p>
+  </div>
+  <div class="col">
+    <p>Start date </p>
+  </div>
+  <div class="col">
+    <p>End date </p>
+  </div>
+  <div class="col">
+    <p>Status </p>
+  </div>
+</div>
+<div *ngFor="let cultivation of cultivations">
+  <div class="container color-light" (click)="showCutlivationComments(cultivation.cultivation.id)">
+    <div class="col">
+      <p class="sm">{{cultivation.cultivation.name}}</p>
+    </div>
+    <div class="col">
+      <p class="sm">{{cultivation.cultivation.plant.name}}</p>
+    </div>
+    <div class="col">
+      <p class="sm">{{cultivation.cultivation.variety.name}}</p>
+    </div>
+    <div class="col">
+      <p class="sm">{{cultivation.cultivation.pieces}}</p>
+    </div>
+    <div class="col">
+      <p class="sm">{{cultivation.cultivation.tunnel.name}}</p>
+    </div>
+    <div class="col">
+      <p class="sm" *ngIf="cultivation.cultivation.start_date != null">{{cultivation.cultivation.start_date | date:'yyyy-MM-dd'}}</p>
+      <p class="sm" *ngIf="cultivation.cultivation.start_date == null"> --- </p>
+    </div>
+    <div class="col">
+      <p class="sm" *ngIf="cultivation.cultivation.end_date != null">{{cultivation.cultivation.end_date | date:'yyyy-MM-dd'}}</p>
+      <p class="sm" *ngIf="cultivation.cultivation.end_date == null"> --- </p>
+    </div>
+    <div class="col">
+      <p class="OnlineText" *ngIf="cultivation.online">Online</p>
+      <p class="OfflineText" *ngIf="!cultivation.online">Offline</p>
+    </div>
+  </div>
+</div>
+
+
+<div class="OnlineText" *ngIf="messageIsShowing && responseIsOk">
+  <b>Uprawa dodana prawidłowo</b>
+</div>
+<div class="OfflineText" *ngIf="messageIsShowing && !responseIsOk">
+  <b>Wystąpił problem podczas tworzenia nowej uprawy</b>
+</div>
+
+<form #cultivationFormInfo="ngForm" (ngSubmit)="onAddNewCultivationSubmit(cultivationFormInfo.value)">
+  <input type="text" class="txt" name="name" placeholder="Nazwa nowej hodowli" [(ngModel)]="cultivationNameForm">
+  <br />
+  <select name="plant" [(ngModel)]="cultivationPlantForm" (change)="onPlantSelectChange(cultivationPlantForm)">
+    <option *ngFor="let plant of plants" value="{{plant.id}}">{{plant.name}}</option>
+  </select>
+
+  <br />
+  <select name="variety" [(ngModel)]="cultivationVarietyForm">
+    <option *ngFor="let variety of varieties" value="{{variety.id}}">{{variety.name}}</option>
+  </select>
+
+  <br />
+  <input type="text" class="txt" name="pieces" placeholder="Liczba sztuk" [(ngModel)]="cultivationPiecesForm">
+  <br />
+  <select name="tunnel" [(ngModel)]="cultivationTunnelForm">
+    <option *ngFor="let tunnel of tunnels" value="{{tunnel.id}}">{{tunnel.name}}</option>
+  </select>
+  <br />
+  <input type="date" class="txt" name="start_date" placeholder="Startdate" [(ngModel)]="cultivationStartDateForm">
+  <br />
+  <input type="submit" class="btn" value="Stwórz uprawę">
+</form>

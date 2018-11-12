@@ -1,0 +1,39 @@
+.avrDeviceInfo{
+    background-color: rgb(44, 149, 219);
+    padding: 15px;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+.avrDeviceInfo:hover{
+    background-color: #1D8BD5;
+}
+
+.OnlineText{
+    color: #99FF99;
+}
+
+.OfflineText{
+    color: #FF9999;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+table, th, td {
+    border: 1px solid black;
+}
+
+tr:first-child { 
+    background-color: #0E7BC5;
+}
+
+tr:hover:not(:first-child){
+    background-color: #1885D0;
+}
+
+td {
+    padding: 5px;
+}

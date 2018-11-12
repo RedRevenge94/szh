@@ -1,0 +1,1 @@
+ALTER TABLE breeding.breeding ADD COLUMN end_date timestamp;

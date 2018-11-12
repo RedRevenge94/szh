@@ -1,0 +1,82 @@
+<!--<div class="container color-dark">
+  <div class="col">
+    <p>Name</p>
+  </div>
+  <div class="col">
+    <p>Ilość hodowli </p>
+  </div>
+  <div class="col">
+    <p>Temperatura </p>
+  </div>
+  <div class="col">
+    <p>Monitoring </p>
+  </div>
+  <div class="col">
+      <p>Szczegóły </p>
+    </div>
+</div>
+<div *ngFor="let tunnel of tunnels" (click)="showBreedings(tunnel.tunnel.id)">
+  <div class="container color-light">
+    <div class="col">
+      <p class="sm">{{tunnel.tunnel.name}}</p>
+    </div>
+    <div class="col">
+      <p class="sm">{{tunnel.cultivations.length}}</p>
+    </div>
+    <div class="col" >
+      <p class="sm" *ngIf="tunnel.temperature != null">{{tunnel.temperature}} &#176; C</p>
+      <p class="sm" *ngIf="tunnel.temperature == null">---</p>
+    </div>
+    <div class="col">
+      <p class="OnlineText" *ngIf="tunnel.online">Online</p>
+      <p class="OfflineText" *ngIf="!tunnel.online">Offline</p>
+    </div>
+    <div class="col" (click)="showTunnelDetails(tunnel.tunnel.id)">
+      <p class="moreLink">Więcej...</p>
+    </div>
+  </div>
+  <div class="tunnelInfoBreedings" *ngIf="breedingShowingState != null && breedingShowingState[tunnel.tunnel.id]">
+    <table>
+      <tr>
+        <th *ngFor="let col of columns">
+          {{col}}
+        </th>
+      </tr>
+      <tr *ngFor="let cultivation of tunnel.cultivations">
+        <td> {{cultivation.id}} </td>
+        <td> {{cultivation.name}} </td>
+        <td> {{cultivation.plant.name}} </td>
+        <td> {{cultivation.pieces}} szt.</td>
+        <td> {{cultivation.start_date | date:'yyyy-MM-dd'}} </td>
+      </tr>
+    </table>
+  </div>
+</div>
+-->
+
+<div *ngFor="let tunnel of tunnels">
+    <div class="infoBoxHeader">{{tunnel.tunnel.name}}</div>
+    <div class="infoBox">
+      Ilość hodowli: {{tunnel.cultivations.length}} <br />
+      Temperatura:
+      <span *ngIf="tunnel.temperature != null">{{tunnel.temperature}} &#176; C</span>
+      <span *ngIf="tunnel.temperature == null">---</span>
+      <br />
+      Monitoring: {{tunnel.online}} <br />
+      <p class="moreLink" (click)="showTunnelDetails(tunnel.tunnel.id)">Więcej...</p>
+    </div>
+</div>
+
+<!-- Dodawanie nowego tunelu -->
+
+<div class="OnlineText" *ngIf="messageIsShowing && responseIsOk">
+    <b>Tunel dodany prawidłowo</b>
+  </div>
+  <div class="OfflineText" *ngIf="messageIsShowing && !responseIsOk">
+    <b>Wystąpił problem podczas tworzenia nowego tunelu</b>
+  </div>
+
+<form #tunnelName="ngForm" (ngSubmit)="onAddNewTunnelSubmit(tunnelName.value)">
+  <input type="text" class="txt" name="name" placeholder="Nazwa nowego tunelu" [(ngModel)]="newTunnelName">
+  <input type="submit" class="btn" value="Stwórz tunel">
+</form>
