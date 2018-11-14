@@ -5,10 +5,10 @@ namespace DeviceDeviceController {
     public class MailSending {
         MailMessage mail;
         SmtpClient smtp;
-        private string mailAddresFrom = "p.bielenda@zbiksoft.pl";
-        private string mailAddresTo = "pbielenda@gmail.com";
-        private string password = "Bialy789123,";
-        private string hostAddres = "mail.zbiksoft.pl";
+        private string mailAddresFrom = "---";
+        private string mailAddresTo = "---";
+        private string password = "---";
+        private string hostAddres = "---";
         private int hostPort = 587;
 
         public MailSending() {

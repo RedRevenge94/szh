@@ -21,13 +21,24 @@ export class TunnelDetailsComponent implements OnInit {
   private getTemperatureSubscription: ISubscription;
 
   constructor(private route: ActivatedRoute, private _tunnelService: TunnelsService) {
+    this.animationDuration = 1000;
     this.route.params.subscribe(res => this.tunnelId = res.id);
     this.getTemperature();
   }
 
-
+  private intervalId;
   ngOnInit() {
-    
+    this.intervalId = setInterval(() => { this.getTemperature(); }, 5000);
+    this.animationDuration = 0;
+  }
+
+  ngOnDestroy(){
+    if (this.getTemperatureSubscription) {
+      this.getTemperatureSubscription.unsubscribe();
+    }
+    if (this.intervalId) {
+      clearInterval(this.intervalId);
+    }
   }
 
   getTemperature() {
@@ -43,6 +54,7 @@ export class TunnelDetailsComponent implements OnInit {
     );
   }
 
+  animationDuration;
   makeTemperatureChart(){
     this.tempChart = new Chart('canvas', {
       type: 'line',
@@ -59,6 +71,9 @@ export class TunnelDetailsComponent implements OnInit {
       options: {
         legend: {
           display: false
+        },
+        animation:{
+          duration: this.animationDuration
         },
         scales:{
           xAxes: [{
