@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using szh.cultivation;
+using szh.cultivation.plants;
 using szh.measurement;
 
 namespace api.Controllers {
@@ -12,9 +13,9 @@ namespace api.Controllers {
 
             foreach (Tunnel tunnel in Tunnel.GetTunnels()) {
 
-                foreach (Cultivation breeding in Cultivation.GetCultivationsInTunnel(tunnel.id)) {
-                    CultivationComment.DeleteFromBreeding(breeding.id);
-                    Cultivation.DeleteFromTunnel(breeding.id);
+                foreach (Cultivation cultivation in Cultivation.GetCultivationsInTunnel(tunnel.id)) {
+                    CultivationComment.DeleteFromBreeding(cultivation.id);
+                    Cultivation.DeleteFromTunnel(cultivation.id);
                 }
 
                 foreach (AvrDevice avr_device in AvrDevice.GetAvrDevicesInTunnel(tunnel.id)) {
@@ -47,7 +48,7 @@ namespace api.Controllers {
                     int newPlantId = Plant.CreatePlant(plantName).id;
 
                     for (int i = 0; i < 5; i++) {
-                        Variety.CreateVariety($"{plantName}_variety_{i}", newPlantId);
+                        Variety.CreateVariety(PlantSpecies.GetPlantSpeciesByName(plantName).id, $"{plantName}_variety_{i}");
                     }
                 }
 
@@ -56,7 +57,12 @@ namespace api.Controllers {
                     AvrDevice.CreateAvrDevice($"localhost/espSim/{i + 10}", id);
 
                     for (int j = 0; j < gen.Next(1, 6); j++) {
-                        int breedingId = Cultivation.CreateCultivation($"Hodowla {i}/{j}", gen.Next(1, plantsNames.Count), gen.Next(1, 6), i + i * j, id, DateTime.Now).id;
+
+                        List<Plant> plants = Plant.GetPlants();
+                        int plantTableIndex = gen.Next(0, plants.Count - 1);
+
+
+                        int breedingId = Cultivation.CreateCultivation($"Hodowla {i}/{j}", plants[plantTableIndex].id, i + i * j, id, DateTime.Now).id;
                         for (int k = 0; k < gen.Next(0, 10); k++) {
                             CultivationComment.AddCultivationComents($"Komentarz do hodowli { i + i * j * k}", breedingId);
                         }

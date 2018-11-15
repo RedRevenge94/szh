@@ -108,7 +108,7 @@ namespace DeviceController {
             //Zapis danych
             if (connectIsOk) {
                 Measurement.AddMeasurement(1, id, temperature);
-                Measurement.AddMeasurement(2, id, adc[5]);
+                //Measurement.AddMeasurement(2, id, adc[5]);
 
                 if (!CommunicationStatus) {
                     CommunicationStatus = true;
@@ -139,7 +139,7 @@ namespace DeviceController {
             }
             changeStateId = 0;
 
-            new MailSending().sendMessage(emailContent);
+            //new MailSending().sendMessage(emailContent);
         }
 
         public void startReading(int time) {

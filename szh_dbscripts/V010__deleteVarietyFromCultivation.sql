@@ -1,0 +1,1 @@
+ALTER TABLE cultivation.cultivation DROP COLUMN variety;

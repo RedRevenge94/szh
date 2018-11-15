@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PlantsService } from '../../../services/plants.service';
 import { ISubscription } from 'rxjs/Subscription';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-plants-view',
@@ -9,13 +10,13 @@ import { ISubscription } from 'rxjs/Subscription';
 })
 export class PlantsViewComponent implements OnInit {
 
-plants;
+  plantSpecies;
 private getPlantsSubscription: ISubscription;
 
-  constructor(private _plantService: PlantsService) { }
+  constructor(private router: Router,private _plantService: PlantsService) { }
 
   ngOnInit() {
-    this.getPlants();
+    this.getPlantSpecies();
   }
 
   ngOnDestroy() {
@@ -24,13 +25,16 @@ private getPlantsSubscription: ISubscription;
     }
   }
 
-  getPlants(){
-    this.getPlantsSubscription = this._plantService.getPlants().subscribe(
-      data => { this.plants = data },
+  getPlantSpecies(){
+    this.getPlantsSubscription = this._plantService.getPlantSpeciesWithVarieties().subscribe(
+      data => { this.plantSpecies = data },
       err => console.error('Erroren :' + err),
-      () => {
-      }
+      () => {}
     );
+  }
+
+  showPlantDetails(id){
+    this.router.navigate(['plants/' + id]);
   }
 
 }

@@ -1,6 +1,5 @@
-import { Plant } from "./plant.model";
+export class PlantSpecies {
 
-export class Variety {
     constructor(
         id: number,
         name: string

@@ -7,7 +7,6 @@ export class Cultivation {
     id: number;
     name: string;
     plant: Plant;
-    variety: Variety;
     pieces: number;
     tunnel: Tunnel;
     start_date: Date;

@@ -28,13 +28,42 @@ namespace szh.measurement {
         }
 
         public static List<Measurement> GetTemperatureInTunnel(int tunnelId, DateTime startDate, DateTime endDate) {
+
+            List<Measurement> measurements;
+
             foreach (var avrDevice in AvrDevice.GetAvrDevicesInTunnel(tunnelId)) {
 
                 string query = $"select * from measurement.measurements where avr_device = {avrDevice.id} and measurement_type = 1 " +
                     $"and date_time >= '{startDate}' and date_time <= '{endDate}' order by date_time";
 
-                return GetMeasurements(query);
+                measurements = GetMeasurements(query);
+
+                if (measurements != null) {
+
+                    List<Measurement> newMeasurementList = new List<Measurement>();
+
+                    Measurement lastMeasurement = new Measurement();
+                    bool isStart = true;
+
+                    foreach (Measurement measurement in measurements) {
+
+                        if (isStart) {
+                            newMeasurementList.Add(measurement);
+                            lastMeasurement = measurement;
+                            isStart = false;
+                        } else {
+                            if (Math.Abs((measurement.date_time - lastMeasurement.date_time).TotalMinutes) > 10) {
+                                newMeasurementList.Add(measurement);
+                                lastMeasurement = measurement;
+                            }
+                        }
+
+                    }
+
+                    return newMeasurementList;
+                }
             }
+
             return null;
         }
 
@@ -45,13 +74,16 @@ namespace szh.measurement {
         }
 
         public static Measurement AddMeasurement(int measurement_type, int avr_device, double value) {
-            Measurement lastMeasurement = new Measurement() { id = GetMax("measurement.measurements") };
 
-            string sql = $"insert into measurement.measurements (id,measurement_type,avr_device,value,date_time) " +
-                $"values ({lastMeasurement.id + 1},{measurement_type},{avr_device},{value.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture)},'{DateTime.Now}')";
+            DateTime date = DateTime.Now;
+
+            string sql = $"insert into measurement.measurements (measurement_type,avr_device,value,date_time) " +
+                $"values ({measurement_type},{avr_device},{value.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture)},'{date}')";
 
             pgSqlSingleManager.ExecuteSQL(sql);
-            var measurementResult = pgSqlSingleManager.ExecuteSQL($"select * from measurement.measurements where id = {lastMeasurement.id + 1}");
+            //to po dacie byc nie moze
+            var measurementResult = pgSqlSingleManager.ExecuteSQL($"select * from measurement.measurements where" +
+                $" measurement_type = {measurement_type} and avr_device = {avr_device} and date_time = '{date}'");
 
             Measurement newMeasurement = new Measurement {
                 id = Int32.Parse(measurementResult[0]["id"]),

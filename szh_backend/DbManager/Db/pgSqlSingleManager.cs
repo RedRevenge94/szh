@@ -71,6 +71,8 @@ namespace DbManager.Db {
 
             lock (npgsqlConnection) {
 
+                Console.WriteLine($"{DateTime.Now} : {sql}");
+
                 //base.ExecuteQuery(sql);
                 try {
                     // Execute a query
@@ -90,9 +92,6 @@ namespace DbManager.Db {
                     Console.WriteLine(e.Message);
                 }
             }
-
-
-
             return result;
         }
 

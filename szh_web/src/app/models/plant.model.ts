@@ -1,18 +1,12 @@
 import { Variety } from "./variety.model";
+import { PlantSpecies } from "./PlantSpecies";
 
 export class Plant {
 
-id:number;
-name:string;
-varieties: Variety[];
-
     constructor(
         id: number,
-        name: string,
-        varieties: Variety[]
+        plantSpecies: PlantSpecies,
+        variety: Variety
     ) {
-        this.id = id;
-        this.name = name;
-        this.varieties = varieties;
      }
 }

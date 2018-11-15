@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using szh.cultivation;
+using szh.cultivation.plants;
 
 namespace api.Controllers {
     [Route("api/[controller]")]
@@ -8,7 +9,13 @@ namespace api.Controllers {
         // GET api/tunnels
         [HttpGet]
         public IActionResult Get() {
-            return new ObjectResult(Plant.GetPlants());
+            return new ObjectResult(PlantSpeciesInfo.GetPlantSpeciesInfo());
+        }
+
+        // GET api/tunnels
+        [HttpGet("{id}", Name = "GetPlant")]
+        public IActionResult GetPlant(int id) {
+            return new ObjectResult(PlantSpeciesInfo.GetPlantSpecies(id));
         }
 
     }

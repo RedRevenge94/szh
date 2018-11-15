@@ -1,24 +1,24 @@
 <div class="container color-dark">
   <div class="col">
-    <p>Name</p>
+    <p>Nazwa</p>
   </div>
   <div class="col">
-    <p>Plant </p>
+    <p>Roślina </p>
   </div>
   <div class="col">
-    <p>Variety </p>
+    <p>Odmiana </p>
   </div>
   <div class="col">
-    <p>Pieces </p>
+    <p>Ilość </p>
   </div>
   <div class="col">
-    <p>Tunnel </p>
+    <p>Tunel </p>
   </div>
   <div class="col">
-    <p>Start date </p>
+    <p>Czas startu </p>
   </div>
   <div class="col">
-    <p>End date </p>
+    <p>Czas końca </p>
   </div>
   <div class="col">
     <p>Status </p>
@@ -30,10 +30,11 @@
       <p class="sm">{{cultivation.cultivation.name}}</p>
     </div>
     <div class="col">
-      <p class="sm">{{cultivation.cultivation.plant.name}}</p>
+      <p class="sm">{{cultivation.cultivation.plant.plantSpecies.name}}</p>
     </div>
     <div class="col">
-      <p class="sm">{{cultivation.cultivation.variety.name}}</p>
+      <p class="sm" *ngIf="cultivation.cultivation.plant.variety != null">{{cultivation.cultivation.plant.variety.name}}</p>
+      <p class="sm" *ngIf="cultivation.cultivation.plant.variety == null">---</p>
     </div>
     <div class="col">
       <p class="sm">{{cultivation.cultivation.pieces}}</p>

@@ -19,6 +19,7 @@ import { CultivationViewComponent } from './cultivations/cultivation-view/cultiv
 import { VarietiesService } from './services/varieties.service';
 import { TunnelDetailsComponent } from './tunnels/tunnelDetailsView/tunnel-details.component';
 import { PlantsViewComponent } from './plants/plantsView/plants-view/plants-view.component';
+import { PlantsDetailsViewComponent } from './plants/plants-details-view/plants-details-view.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { PlantsViewComponent } from './plants/plantsView/plants-view/plants-view
     AvrdevicesComponent,
     CultivationViewComponent,
     TunnelDetailsComponent,
-    PlantsViewComponent
+    PlantsViewComponent,
+    PlantsDetailsViewComponent
   ],
   imports: [
     BrowserModule,

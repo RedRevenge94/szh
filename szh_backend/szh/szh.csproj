@@ -41,10 +41,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="cultivation\AvrDevice.cs" />
-    <Compile Include="cultivation\Variety.cs" />
+    <Compile Include="cultivation\plants\PlantSpecies.cs" />
+    <Compile Include="cultivation\plants\PlantSpeciesInfo.cs" />
+    <Compile Include="cultivation\plants\Variety.cs" />
     <Compile Include="cultivation\Cultivation.cs" />
     <Compile Include="cultivation\CultivationComment.cs" />
-    <Compile Include="cultivation\Plant.cs" />
+    <Compile Include="cultivation\plants\Plant.cs" />
     <Compile Include="cultivation\Tunnel.cs" />
     <Compile Include="dao\AvrDeviceInfo.cs" />
     <Compile Include="dao\CultivationInfo.cs" />

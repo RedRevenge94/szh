@@ -1,6 +1,7 @@
 ﻿using DbManager.Db;
 using System;
 using System.Collections.Generic;
+using szh.cultivation.plants;
 
 namespace szh.cultivation {
     public class Cultivation : Entity {
@@ -9,7 +10,6 @@ namespace szh.cultivation {
         public int id;
         public string name;
         public Plant plant;
-        public Variety variety;
         public int pieces;
         public Tunnel tunnel;
         public DateTime start_date;
@@ -25,36 +25,11 @@ namespace szh.cultivation {
         #region Creating Cultivation
 
         public static Cultivation CreateCultivation(Cultivation cultivation) {
-
-            if (cultivation.variety != null && cultivation.variety.id > 0) {
-                return CreateCultivation(cultivation.name, cultivation.plant.id, cultivation.variety.id, cultivation.pieces, cultivation.tunnel.id, cultivation.start_date);
-            } else {
-                return CreateCultivation(cultivation.name, cultivation.plant.id, cultivation.pieces, cultivation.tunnel.id, cultivation.start_date);
-            }
-        }
-
-        public static Cultivation CreateCultivation(string name, int plant, int variety, int pieces, int tunnel, DateTime start_date) {
-
-            Cultivation lastCultivation = new Cultivation() { id = GetMax("cultivation.cultivation") };
-
-            pgSqlSingleManager.ExecuteSQL($"insert into cultivation.cultivation (id,name,plant,variety,pieces,tunnel,start_date) " +
-                $"values ({lastCultivation.id + 1},'{name}',{plant},{variety},{pieces},{tunnel},'{start_date}')");
-            var cultivationResult = pgSqlSingleManager.ExecuteSQL($"select * from cultivation.cultivation where id = {lastCultivation.id + 1}");
-
-            Cultivation newCultivation = new Cultivation {
-                id = Int32.Parse(cultivationResult[0]["id"]),
-                name = cultivationResult[0]["name"],
-                pieces = Int32.Parse(cultivationResult[0]["pieces"]),
-                plant = Plant.GetPlant(Int32.Parse(cultivationResult[0]["plant"])),
-                variety = Variety.GetVariety(Int32.Parse(cultivationResult[0]["variety"])),
-                tunnel = Tunnel.GetTunnel(Int32.Parse(cultivationResult[0]["tunnel"])),
-                start_date = DateTime.Parse(cultivationResult[0]["start_date"])
-            };
-
-            return newCultivation;
+            return CreateCultivation(cultivation.name, cultivation.plant.id, cultivation.pieces, cultivation.tunnel.id, cultivation.start_date);
         }
 
         public static Cultivation CreateCultivation(string name, int plant, int pieces, int tunnel, DateTime start_date) {
+
             Cultivation lastCultivation = new Cultivation() { id = GetMax("cultivation.cultivation") };
 
             pgSqlSingleManager.ExecuteSQL($"insert into cultivation.cultivation (id,name,plant,pieces,tunnel,start_date) " +
@@ -115,7 +90,6 @@ namespace szh.cultivation {
                     id = Int32.Parse(cultivation["id"]),
                     name = cultivation["name"],
                     plant = Plant.GetPlant(Int32.Parse(cultivation["plant"])),
-                    variety = Variety.GetVariety(Int32.Parse(cultivation["variety"])),
                     pieces = Int32.Parse(cultivation["pieces"]),
                     tunnel = Tunnel.GetTunnel(Int32.Parse(cultivation["tunnel"])),
                     start_date = DateTime.Parse(cultivation["start_date"]),

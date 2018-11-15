@@ -8,7 +8,7 @@ namespace api.Controllers {
         // GET api/Varieties
         [HttpGet("{plantId}")]
         public IActionResult Get(int plantId) {
-            return new ObjectResult(Variety.GetVarietiesForPlant(plantId));
+            return null;
         }
 
     }
