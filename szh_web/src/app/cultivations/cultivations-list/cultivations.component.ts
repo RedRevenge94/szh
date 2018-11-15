@@ -121,12 +121,12 @@ export class CultivationsComponent implements OnInit {
     this.getCultivations();
   }
 
-  onPlantSelectChange(plantId){
-    this.getVarieties(plantId);
+  onPlantSelectChange(plantSpeciesId){
+    this.getVarieties(plantSpeciesId);
   }
 
-  getVarieties(plantId){
-    this.getVarietiesSubscription = this._varietiesService.getVarietiesForPlant(plantId).subscribe(
+  getVarieties(plantSpeciesId){
+    this.getVarietiesSubscription = this._varietiesService.getVarietiesForPlant(plantSpeciesId).subscribe(
       data => {this.varieties = data},
       err => console.error(err),
       () => {}

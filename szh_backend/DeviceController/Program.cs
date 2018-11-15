@@ -14,7 +14,7 @@ namespace DeviceController {
             new Thread(() => { serialPortReader.Update(); }).Start();
 
             while (true) {
-                foreach (AvrDevice avrDevice in AvrDevice.GetAvrDevices()) {
+                foreach (AvrDevice avrDevice in AvrDevice.GetAvrDevicesSimple()) {
 
                     if (avrDeviceList.Find(x => x.id == avrDevice.id) == null) {
                         AVRDeviceReader avrDeviceReader = new AVRDeviceReader(avrDevice.id, avrDevice.ip);

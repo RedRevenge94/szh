@@ -21,6 +21,10 @@ namespace szh.cultivation {
 
         public static void DeleteAvrDevice(int id) => pgSqlSingleManager.ExecuteSQL($"delete from devices.avr_device where id = {id}");
 
+        public static List<AvrDevice> GetAvrDevicesSimple() {
+            return GetAvrDevices($"select * from devices.avr_device", false);
+        }
+
         public static List<AvrDevice> GetAvrDevices() => GetAvrDevices($"select * from devices.avr_device");
 
         public static AvrDevice GetAvrDevice(int avrDeviceId) => GetAvrDevices($"select * from devices.avr_device where id = {avrDeviceId}")[0];
@@ -35,15 +39,23 @@ namespace szh.cultivation {
         }
 
         private static List<AvrDevice> GetAvrDevices(string query) {
+            return GetAvrDevices(query, true);
+        }
+
+        private static List<AvrDevice> GetAvrDevices(string query, bool getTunnelInfo) {
             List<AvrDevice> avrDevices = new List<AvrDevice>();
 
             foreach (var avrDevice in pgSqlSingleManager.ExecuteSQL(query)) {
                 AvrDevice newAvrDevice = new AvrDevice() {
                     id = Int32.Parse(avrDevice["id"]),
                     ip = avrDevice["ip"],
-                    tunnel = Tunnel.GetTunnel(Int32.Parse(avrDevice["tunnel"])),
                     last_update = null
                 };
+
+                if (getTunnelInfo) {
+                    newAvrDevice.tunnel = Tunnel.GetTunnel(Int32.Parse(avrDevice["tunnel"]));
+                }
+
                 if (avrDevice["last_update"] != "") {
                     newAvrDevice.last_update = DateTime.Parse(avrDevice["last_update"]);
                 }

@@ -28,6 +28,7 @@ namespace szh.cultivation {
             return CreateCultivation(cultivation.name, cultivation.plant.id, cultivation.pieces, cultivation.tunnel.id, cultivation.start_date);
         }
 
+        //Do przerobienia - plant to nie ten plant
         public static Cultivation CreateCultivation(string name, int plant, int pieces, int tunnel, DateTime start_date) {
 
             Cultivation lastCultivation = new Cultivation() { id = GetMax("cultivation.cultivation") };

@@ -6,9 +6,9 @@ namespace api.Controllers {
     public class VarietiesController : Controller {
 
         // GET api/Varieties
-        [HttpGet("{plantId}")]
-        public IActionResult Get(int plantId) {
-            return null;
+        [HttpGet("{plantSpeciesId}")]
+        public IActionResult Get(int plantSpeciesId) {
+            return new ObjectResult(Variety.GetVarietyForPlantSpecies(plantSpeciesId));
         }
 
     }
