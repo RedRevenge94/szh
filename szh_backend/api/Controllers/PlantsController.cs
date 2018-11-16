@@ -15,7 +15,7 @@ namespace api.Controllers {
         // GET api/tunnels
         [HttpGet("{id}", Name = "GetPlant")]
         public IActionResult GetPlant(int id) {
-            return new ObjectResult(PlantSpeciesInfo.GetPlantSpecies(id));
+            return new ObjectResult(PlantSpeciesInfo.GetPlantSpeciesInfo(id));
         }
 
     }

@@ -14,7 +14,7 @@ export class PlantsService {
   constructor(private http: HttpClient) {}
 
   getPlant(id){
-    return this.http.get<Plant>(ApiUrlConfigurator.GetApiUrl() + '/Plants/' + id);
+    return this.http.get<PlantSpeciesInfo>(ApiUrlConfigurator.GetApiUrl() + '/Plants/' + id);
   }
 
   getPlants(){

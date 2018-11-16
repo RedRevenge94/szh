@@ -27,5 +27,17 @@ namespace szh.cultivation.plants {
             }
             return plantSpeciesInfoList;
         }
+
+        public static PlantSpeciesInfo GetPlantSpeciesInfo(int platnSpeciesId) {
+
+            PlantSpecies plantSpecies = GetPlantSpecies(platnSpeciesId);
+
+            PlantSpeciesInfo plantSpeciesInfo = new PlantSpeciesInfo {
+                id = plantSpecies.id,
+                name = plantSpecies.name,
+                varieties = GetVarietiesForPlant(plantSpecies.id)
+            };
+            return plantSpeciesInfo;
+        }
     }
 }
