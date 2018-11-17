@@ -77,7 +77,14 @@ export class TunnelDetailsComponent implements OnInit {
         },
         scales:{
           xAxes: [{
-            display: true
+            type: 'time',
+            time: {
+              displayFormats:{
+                quarter: 'DD.MM hh:mm'
+              }
+            },
+            display: true,
+            distribution: 'linear'
           }],
           yAxes: [{
             display: true
