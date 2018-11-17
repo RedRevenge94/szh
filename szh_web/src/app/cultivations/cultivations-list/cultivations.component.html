@@ -68,19 +68,19 @@
 <form #cultivationFormInfo="ngForm" (ngSubmit)="onAddNewCultivationSubmit(cultivationFormInfo.value)">
   <input type="text" class="txt" name="name" placeholder="Nazwa nowej hodowli" [(ngModel)]="cultivationNameForm">
   <br />
-  <select name="plant" [(ngModel)]="cultivationPlantForm" (change)="onPlantSelectChange(cultivationPlantForm)">
+  <select name="plantSpeciesId" [(ngModel)]="cultivationPlantForm" (change)="onPlantSelectChange(cultivationPlantForm)">
     <option *ngFor="let plant of plants" value="{{plant.id}}">{{plant.name}}</option>
   </select>
 
   <br />
-  <select name="variety" [(ngModel)]="cultivationVarietyForm">
+  <select name="varietyId" [(ngModel)]="cultivationVarietyForm">
     <option *ngFor="let variety of varieties" value="{{variety.id}}">{{variety.name}}</option>
   </select>
 
   <br />
   <input type="text" class="txt" name="pieces" placeholder="Liczba sztuk" [(ngModel)]="cultivationPiecesForm">
   <br />
-  <select name="tunnel" [(ngModel)]="cultivationTunnelForm">
+  <select name="tunnelId" [(ngModel)]="cultivationTunnelForm">
     <option *ngFor="let tunnel of tunnels" value="{{tunnel.id}}">{{tunnel.name}}</option>
   </select>
   <br />

@@ -23,7 +23,7 @@ namespace szh.cultivation {
                 $"values ('{name}')");
 
             pgSqlSingleManager.ExecuteSQL($"insert into cultivation.plants (plant_species, plant_variety) " +
-                $"values ({plantSpeciesId}, (select id from cultivation.variety where name = '{name}'))");
+                $"values ({plantSpeciesId}, (select id from cultivation.variety where name = '{name}' order by id desc limit 1))");
 
             return GetVarieties($"select * from cultivation.variety where name = '{name}'")[0];
         }

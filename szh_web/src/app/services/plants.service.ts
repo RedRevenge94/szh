@@ -14,7 +14,7 @@ export class PlantsService {
   constructor(private http: HttpClient) {}
 
   getPlant(id){
-    return this.http.get<PlantSpeciesInfo>(ApiUrlConfigurator.GetApiUrl() + '/Plants/' + id);
+    return this.http.get<Plant>(ApiUrlConfigurator.GetApiUrl() + '/Plants/' + id);
   }
 
   getPlants(){
@@ -23,5 +23,13 @@ export class PlantsService {
 
   getPlantSpeciesWithVarieties(){
     return this.http.get<PlantSpeciesInfo[]>(ApiUrlConfigurator.GetApiUrl() + '/Plants');
+  }
+
+  createPlantSpecies(plantSpeciesName){
+    return this.http.post(ApiUrlConfigurator.GetApiUrl() + "/Plants/add",plantSpeciesName);
+  }
+
+  createVariety(varietyInfo){
+    return this.http.post(ApiUrlConfigurator.GetApiUrl() + "/Varieties/add",varietyInfo);
   }
 }

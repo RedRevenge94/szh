@@ -10,6 +10,8 @@ import { TunnelsService } from '../../services/tunnels.service';
 })
 export class TunnelsComponent implements OnInit {
 
+  showSpinner: boolean = true;
+
   private intervalId;
   private getTunnelsSubscription: ISubscription;
   private addNewTunnelSubscription: ISubscription;
@@ -57,6 +59,7 @@ export class TunnelsComponent implements OnInit {
         if (this.tunnels != null && this.breedingShowingState == null) {
           this.breedingShowingState = new Array(this.tunnels.length).fill(false);
         }
+        this.showSpinner = false;
       }
     );
   }

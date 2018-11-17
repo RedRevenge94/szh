@@ -22,6 +22,19 @@ namespace szh.cultivation.plants {
             return GetPlantSpecies($"select * from cultivation.plant_species");
         }
 
+        public static PlantSpecies AddPlantSpecies(string name) {
+
+            pgSqlSingleManager.ExecuteSQL($"insert into cultivation.plant_species (name) values ('{name}')");
+            var plantResult = pgSqlSingleManager.ExecuteSQL($"select * from cultivation.plant_species where name = '{name}'");
+
+            PlantSpecies newPlant = new PlantSpecies {
+                id = Int32.Parse(plantResult[0]["id"]),
+                name = plantResult[0]["name"]
+            };
+
+            return newPlant;
+        }
+
         public static List<Variety> GetVarietiesForPlant(int plantSpeciesId) {
             return Variety.GetVarietyForPlantSpecies(plantSpeciesId);
         }

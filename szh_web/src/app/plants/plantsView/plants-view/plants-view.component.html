@@ -8,3 +8,17 @@
     </ul>
   </div>
 </div>
+
+<!-- Dodawanie nowej rośliny -->
+
+<div class="OnlineText" *ngIf="messageIsShowing && responseIsOk">
+  <b>Roślina dodana prawidłowo</b>
+</div>
+<div class="OfflineText" *ngIf="messageIsShowing && !responseIsOk">
+  <b>Wystąpił problem podczas tworzenia nowej rośliny</b>
+</div>
+
+<form #plantSpeciesName="ngForm" (ngSubmit)="onAddNewPlantSpeciesSubmit(plantSpeciesName.value)">
+<input type="text" class="txt" name="name" placeholder="Nazwa nowego gatunku rośliny" [(ngModel)]="newPlantSpeciesName">
+<input type="submit" class="btn" value="Dodaj gatunek rośliny">
+</form>

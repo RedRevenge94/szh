@@ -6,3 +6,18 @@
     Informacje na temat odmiany.. Może zdjęcie.
   </div>
 </div>
+
+<!-- Dodawanie nowej odmiany -->
+
+<div class="OnlineText" *ngIf="messageIsShowing && responseIsOk">
+  <b>Odmiana dodana prawidłowo</b>
+</div>
+<div class="OfflineText" *ngIf="messageIsShowing && !responseIsOk">
+  <b>Wystąpił problem podczas dodawania nowej odmiany</b>
+</div>
+
+<form #variety="ngForm" (ngSubmit)="onAddNewVarietySubmit(variety.value)">
+<input type="text" class="txt" name="name" placeholder="Nazwa nowej odmiany rośliny" [(ngModel)]="newVarietyName">
+<input type="hidden" name="plantSpeciesId" [(ngModel)]="plantId" [(ngModel)]="newVarietyPlantSpecies">
+<input type="submit" class="btn" value="Dodaj odmianę rośliny">
+</form>

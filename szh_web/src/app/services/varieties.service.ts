@@ -12,6 +12,6 @@ export class VarietiesService {
   constructor(private http: HttpClient) {}
 
   getVarietiesForPlant(plantId){
-    return this.http.get<Variety>(ApiUrlConfigurator.GetApiUrl() + '/Varieties/' + plantId);
+    return this.http.get<Variety>(ApiUrlConfigurator.GetApiUrl() + '/Varieties/plant/' + plantId);
   }
 }

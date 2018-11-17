@@ -54,6 +54,8 @@
 </div>
 -->
 
+<app-loading-spinner *ngIf="showSpinner"></app-loading-spinner>
+
 <div *ngFor="let tunnel of tunnels">
     <div class="infoBoxHeader">{{tunnel.tunnel.name}}</div>
     <div class="infoBox">

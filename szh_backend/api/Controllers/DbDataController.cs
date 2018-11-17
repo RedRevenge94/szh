@@ -48,12 +48,12 @@ namespace api.Controllers {
                     int newPlantId = Plant.CreatePlant(plantName).id;
 
                     for (int i = 0; i < 5; i++) {
-                        Variety.CreateVariety(PlantSpecies.GetPlantSpeciesByName(plantName).id, $"{plantName}_variety_{i}");
+                        Variety.CreateVariety(PlantSpecies.GetPlantSpeciesByName(plantName).id, $"Odmiana {i}");
                     }
                 }
 
                 for (int i = 0; i < 4; i++) {
-                    int id = Tunnel.CreateTunnel($"Tunnel{i}").id;
+                    int id = Tunnel.CreateTunnel($"Tunnel {i}").id;
                     AvrDevice.CreateAvrDevice($"localhost/espSim/{i + 10}", id);
 
                     for (int j = 0; j < gen.Next(1, 6); j++) {
@@ -62,7 +62,7 @@ namespace api.Controllers {
                         int plantTableIndex = gen.Next(0, plants.Count - 1);
 
 
-                        int breedingId = Cultivation.CreateCultivation($"Hodowla {i}/{j}", plants[plantTableIndex].id, i + i * j, id, DateTime.Now).id;
+                        int breedingId = Cultivation.CreateCultivation($"Hodowla {i}/{j}", plants[plantTableIndex].id, i + i * j + 1, id, DateTime.Now).id;
                         for (int k = 0; k < gen.Next(0, 10); k++) {
                             CultivationComment.AddCultivationComents($"Komentarz do hodowli { i + i * j * k}", breedingId);
                         }

@@ -13,6 +13,7 @@ namespace DeviceController {
 
             new Thread(() => { serialPortReader.Update(); }).Start();
 
+
             while (true) {
                 foreach (AvrDevice avrDevice in AvrDevice.GetAvrDevicesSimple()) {
 

@@ -24,12 +24,12 @@ namespace api.Controllers {
         }
 
         [HttpPost]
-        public IActionResult Create([FromBody] Cultivation cultivation) {
+        public IActionResult Create([FromBody] CultivationAddModel cultivation) {
 
-            if (cultivation.name == null || cultivation.plant == null || cultivation.start_date == null) {
+            if (cultivation.name == null || cultivation.plantSpeciesId == 0 || cultivation.start_date == null || cultivation.tunnelId == 0) {
                 return BadRequest();
             } else {
-                Cultivation newCultivation = Cultivation.CreateCultivation(cultivation);
+                Cultivation newCultivation = CultivationAddModel.CreateCultivation(cultivation);
                 if (newCultivation.name.Equals(cultivation.name)) {
                     return CreatedAtRoute("GetCultivation", new { newCultivation.id }, newCultivation);
                 }

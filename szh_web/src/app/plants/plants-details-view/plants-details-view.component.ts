@@ -15,6 +15,12 @@ export class PlantsDetailsViewComponent implements OnInit {
   plant: Plant;
   private getPlantSubscription: ISubscription;
 
+  //Creating new variety
+  newVarietyName: string;
+  messageIsShowing: boolean;
+  responseIsOk: boolean;
+  private addNewVarietySubscription: ISubscription;
+
   constructor(private route: ActivatedRoute, private _plantService: PlantsService) {
     this.route.params.subscribe(res => this.plantId = res.id);
     this.getPlant();
@@ -27,6 +33,9 @@ export class PlantsDetailsViewComponent implements OnInit {
     if (this.getPlantSubscription) {
       this.getPlantSubscription.unsubscribe();
     }
+    if (this.addNewVarietySubscription) {
+      this.addNewVarietySubscription.unsubscribe();
+    }
   }
 
   getPlant(){
@@ -35,6 +44,12 @@ export class PlantsDetailsViewComponent implements OnInit {
       err => console.error('Erroren :' + err),
       () => {
       }
+    );
+  }
+
+  onAddNewVarietySubmit(varietyInfo){
+    console.log(varietyInfo);
+    this.addNewVarietySubscription = this._plantService.createVariety(varietyInfo).subscribe(
     );
   }
 

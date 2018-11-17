@@ -110,9 +110,10 @@ export class CultivationsComponent implements OnInit {
   }
 
   onAddNewCultivationSubmit(cultivation){
-    cultivation.plant = this.plants.find(x => x.id == cultivation.plant)
-    cultivation.variety = this.varieties.find( x => x.id == cultivation.variety)
-    cultivation.tunnel = this.tunnels.find(x => x.id == cultivation.tunnel)
+    console.log(cultivation);
+    //cultivation.plant = this.plants.find(x => x.id == cultivation.plant)
+    //cultivation.variety = this.varieties.find( x => x.id == cultivation.variety)
+    //cultivation.tunnel = this.tunnels.find(x => x.id == cultivation.tunnel)
     this.addNewCultivationSubscription = this._cultivationInfoService.createCultivation(cultivation).subscribe(
       data => { },
       err => { this.responseIsOk = false; this.messageIsShowing = true; console.log(err);},

@@ -11,7 +11,13 @@ import { Router } from '@angular/router';
 export class PlantsViewComponent implements OnInit {
 
   plantSpecies;
-private getPlantsSubscription: ISubscription;
+  private getPlantsSubscription: ISubscription;
+
+  //Creating new plantSpecies
+  newPlantSpeciesName: string;
+  messageIsShowing: boolean;
+  responseIsOk: boolean;
+  private addNewPlantSpeciesSubscription: ISubscription;
 
   constructor(private router: Router,private _plantService: PlantsService) { }
 
@@ -22,6 +28,9 @@ private getPlantsSubscription: ISubscription;
   ngOnDestroy() {
     if (this.getPlantsSubscription) {
       this.getPlantsSubscription.unsubscribe();
+    }
+    if (this.addNewPlantSpeciesSubscription) {
+      this.addNewPlantSpeciesSubscription.unsubscribe();
     }
   }
 
@@ -35,6 +44,16 @@ private getPlantsSubscription: ISubscription;
 
   showPlantDetails(id){
     this.router.navigate(['plants/' + id]);
+  }
+
+  onAddNewPlantSpeciesSubmit(plantSpecies) {
+    console.log(JSON.stringify(plantSpecies));
+    this.addNewPlantSpeciesSubscription = this._plantService.createPlantSpecies(plantSpecies).subscribe(
+      data => { },
+      err => { this.responseIsOk = false; this.messageIsShowing = true; },
+      () => { this.responseIsOk = true; this.messageIsShowing = true;
+        this.getPlantSpecies(); }
+    );
   }
 
 }

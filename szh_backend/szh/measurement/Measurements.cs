@@ -77,25 +77,30 @@ namespace szh.measurement {
 
             DateTime date = DateTime.Now;
 
-            string sql = $"insert into measurement.measurements (measurement_type,avr_device,value,date_time) " +
+            try {
+                string sql = $"insert into measurement.measurements (measurement_type,avr_device,value,date_time) " +
                 $"values ({measurement_type},{avr_device},{value.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture)},'{date}')";
 
-            pgSqlSingleManager.ExecuteSQL(sql);
-            //to po dacie byc nie moze
-            var measurementResult = pgSqlSingleManager.ExecuteSQL($"select * from measurement.measurements where" +
-                $" measurement_type = {measurement_type} and avr_device = {avr_device} and date_time = '{date}'");
+                pgSqlSingleManager.ExecuteSQL(sql);
+                //to po dacie byc nie moze
+                var measurementResult = pgSqlSingleManager.ExecuteSQL($"select * from measurement.measurements where" +
+                    $" measurement_type = {measurement_type} and avr_device = {avr_device} and date_time = '{date}'");
 
-            Measurement newMeasurement = new Measurement {
-                id = Int32.Parse(measurementResult[0]["id"]),
-                value = Double.Parse(measurementResult[0]["value"]),
-                avr_device = Int32.Parse(measurementResult[0]["avr_device"]),
-                measurement_type = Int32.Parse(measurementResult[0]["measurement_type"]),
-                date_time = DateTime.Parse(measurementResult[0]["date_time"])
-            };
+                Measurement newMeasurement = new Measurement {
+                    id = Int32.Parse(measurementResult[0]["id"]),
+                    value = Double.Parse(measurementResult[0]["value"]),
+                    avr_device = Int32.Parse(measurementResult[0]["avr_device"]),
+                    measurement_type = Int32.Parse(measurementResult[0]["measurement_type"]),
+                    date_time = DateTime.Parse(measurementResult[0]["date_time"])
+                };
 
-            AvrDevice.Update(newMeasurement.avr_device);
+                AvrDevice.Update(newMeasurement.avr_device);
 
-            return newMeasurement;
+                return newMeasurement;
+            } catch { }
+
+
+            return null;
         }
 
         #endregion
