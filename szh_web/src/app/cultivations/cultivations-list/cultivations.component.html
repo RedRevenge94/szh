@@ -25,12 +25,20 @@
   </div>
 </div>
 <div *ngFor="let cultivation of cultivations">
-  <div class="container color-light" (click)="showCutlivationComments(cultivation.cultivation.id)">
+  <div class="container color-light">
     <div class="col">
-      <p class="sm">{{cultivation.cultivation.name}}</p>
+      <p class="sm">
+        <span class="moreLink" (click)="showCutlivationComments(cultivation.cultivation.id)">
+           {{cultivation.cultivation.name}}
+        </span>
+      </p>
     </div>
     <div class="col">
-      <p class="sm">{{cultivation.cultivation.plant.plantSpecies.name}}</p>
+      <p class="sm">
+          <span class="moreLink" (click)="onPlantTunnelDetails(cultivation.cultivation.plant.plantSpecies.id)">
+             {{cultivation.cultivation.plant.plantSpecies.name}}
+          </span>
+        </p>
     </div>
     <div class="col">
       <p class="sm" *ngIf="cultivation.cultivation.plant.variety != null">{{cultivation.cultivation.plant.variety.name}}</p>
@@ -40,7 +48,11 @@
       <p class="sm">{{cultivation.cultivation.pieces}}</p>
     </div>
     <div class="col">
-      <p class="sm">{{cultivation.cultivation.tunnel.name}}</p>
+      <p class="sm">
+        <span class="moreLink" (click)="onShowTunnelDetails(cultivation.cultivation.tunnel.id)">
+          {{cultivation.cultivation.tunnel.name}}
+        </span>
+      </p>
     </div>
     <div class="col">
       <p class="sm" *ngIf="cultivation.cultivation.start_date != null">{{cultivation.cultivation.start_date | date:'yyyy-MM-dd'}}</p>

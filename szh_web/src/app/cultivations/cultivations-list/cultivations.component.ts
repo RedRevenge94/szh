@@ -133,4 +133,12 @@ export class CultivationsComponent implements OnInit {
       () => {}
     )
   }
+
+  onPlantTunnelDetails(plantId){
+    this.router.navigate(['plants/' + plantId]);
+  }
+
+  onShowTunnelDetails(tunnelId){
+    this.router.navigate(['tunnels/' + tunnelId]);
+  }
 }

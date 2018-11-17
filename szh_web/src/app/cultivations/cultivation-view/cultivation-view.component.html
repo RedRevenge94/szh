@@ -25,7 +25,7 @@
     <form #cultivationUpdateForm="ngForm" (ngSubmit)="SaveChanges(cultivationUpdateForm.value)">
 
       Nazwa: <input type="text" class="txt" name="name" [(ngModel)]="cultivation?.cultivation.name">
-      <br /> Roślina: {{cultivation?.cultivation.plant.name}}
+      <br /> Roślina: {{cultivation?.cultivation.plant.plantSpecies.name}}
       <br /> Ilość: <input type="text" class="txt" name="pieces" [(ngModel)]="cultivation?.cultivation.pieces">
       
       <br /> Tunel: 
