@@ -2,15 +2,33 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ISubscription } from 'rxjs/Subscription';
 import { TunnelsService } from '../../services/tunnels.service';
+import { trigger,style,transition,animate,keyframes,query,stagger } from '@angular/animations';
+import { delay } from 'q';
 
 @Component({
   selector: 'app-tunnels',
   templateUrl: './tunnels.component.html',
-  styleUrls: ['./tunnels.component.scss']
+  styleUrls: ['./tunnels.component.scss'],
+  animations: [
+
+    trigger('tunnelsAnnimation', [
+      transition('* => *', [
+        query(':enter',style({opacity: 0}), {optional: true}),
+        query(':enter',stagger('300ms',[
+          animate('.6s ease-in',keyframes([
+            style({opacity: 0,transform: 'translateY(-20%)',offset:0}),
+            style({opacity: .5,transform: 'translateY(20px)',offset:.3}),
+            style({opacity: 1,transform: 'translateY(0)',offset:1})
+          ]))
+        ]), {optional: true})
+      ])
+    ])
+  ]
 })
 export class TunnelsComponent implements OnInit {
 
-  showSpinner: boolean = true;
+  minLoadingTime = 500;
+  loadingView: boolean = true;
 
   private intervalId;
   private getTunnelsSubscription: ISubscription;
@@ -52,6 +70,9 @@ export class TunnelsComponent implements OnInit {
   }
 
   getTunnels() {
+
+    var start = new Date().getTime();
+
     this.getTunnelsSubscription = this._tunnelService.getTunnelsInfo().subscribe(
       data => { this.tunnels = data },
       err => console.error('Erroren :' + err),
@@ -59,7 +80,12 @@ export class TunnelsComponent implements OnInit {
         if (this.tunnels != null && this.breedingShowingState == null) {
           this.breedingShowingState = new Array(this.tunnels.length).fill(false);
         }
-        this.showSpinner = false;
+
+        var end = new Date().getTime();
+        var executionTime = end - start;
+        if(executionTime < this.minLoadingTime){
+          setTimeout(()=>{this.loadingView = false; }, this.minLoadingTime - executionTime)
+        }
       }
     );
   }

@@ -1,32 +1,36 @@
-<app-loading-spinner *ngIf="showSpinner"></app-loading-spinner>
+<span *ngIf="loadingView">
+    <app-loading-spinner ></app-loading-spinner>
+</span>
 
-<div *ngFor="let tunnel of tunnels">
-    <div class="infoBoxHeader">{{tunnel.tunnel.name}}</div>
-    <div class="infoBox">
-      <div class="leftInfoBox">
-          Ilość hodowli: {{tunnel.cultivations.length}} <br />
-          Monitoring: {{tunnel.online}} <br />
-          <p class="moreLink" (click)="showTunnelDetails(tunnel.tunnel.id)">Więcej...</p>
-      </div>
-
-      <div class="rightInfoBox">
-          <span *ngIf="tunnel.temperature != null">{{tunnel.temperature}} &#176; C</span>
-          <span *ngIf="tunnel.temperature == null">--- &#176; C</span>
-      </div>
-      <div style="clear: both;"></div>
+<span [@tunnelsAnnimation] *ngIf="!loadingView">
+    <div *ngFor="let tunnel of tunnels">
+        <div class="infoBoxHeader">{{tunnel.tunnel.name}}</div>
+        <div class="infoBox">
+          <div class="leftInfoBox">
+              Ilość hodowli: {{tunnel.cultivations.length}} <br />
+              Monitoring: {{tunnel.online}} <br />
+              <p class="moreLink" (click)="showTunnelDetails(tunnel.tunnel.id)">Więcej...</p>
+          </div>
+    
+          <div class="rightInfoBox">
+              <span *ngIf="tunnel.temperature != null">{{tunnel.temperature}} &#176; C</span>
+              <span *ngIf="tunnel.temperature == null">--- &#176; C</span>
+          </div>
+          <div style="clear: both;"></div>
+        </div>
     </div>
-</div>
-
-<!-- Dodawanie nowego tunelu -->
-
-<div class="OnlineText" *ngIf="messageIsShowing && responseIsOk">
-    <b>Tunel dodany prawidłowo</b>
-  </div>
-  <div class="OfflineText" *ngIf="messageIsShowing && !responseIsOk">
-    <b>Wystąpił problem podczas tworzenia nowego tunelu</b>
-  </div>
-
-<form #tunnelName="ngForm" (ngSubmit)="onAddNewTunnelSubmit(tunnelName.value)">
-  <input type="text" class="txt" name="name" placeholder="Nazwa nowego tunelu" [(ngModel)]="newTunnelName">
-  <input type="submit" class="btn" value="Stwórz tunel">
-</form>
+    
+    <!-- Dodawanie nowego tunelu -->
+    
+    <div class="OnlineText" *ngIf="messageIsShowing && responseIsOk">
+        <b>Tunel dodany prawidłowo</b>
+      </div>
+      <div class="OfflineText" *ngIf="messageIsShowing && !responseIsOk">
+        <b>Wystąpił problem podczas tworzenia nowego tunelu</b>
+      </div>
+    
+    <form #tunnelName="ngForm" (ngSubmit)="onAddNewTunnelSubmit(tunnelName.value)">
+      <input type="text" class="txt" name="name" placeholder="Nazwa nowego tunelu" [(ngModel)]="newTunnelName">
+      <input type="submit" class="btn" value="Stwórz tunel">
+    </form>
+</span>
