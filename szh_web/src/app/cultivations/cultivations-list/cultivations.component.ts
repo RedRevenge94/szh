@@ -3,17 +3,34 @@ import { CultivationsService } from '../../services/cultivations.service';
 import { ISubscription } from 'rxjs/Subscription';
 import { TunnelsService } from '../../services/tunnels.service';
 import { PlantsService } from '../../services/plants.service';
-import { Plant } from '../../models/plant.model';
-import { CultivationCommentsService } from '../../services/cultivationComments.service';
 import { Router } from '@angular/router';
 import { VarietiesService } from '../../services/varieties.service';
+import { trigger,style,transition,animate,keyframes,query,stagger } from '@angular/animations';
+import { LoadingSpinnerComponent } from '../../ui/loading-spinner/loading-spinner.component';
 
 @Component({
   selector: 'app-cultivations',
   templateUrl: './cultivations.component.html',
-  styleUrls: ['./cultivations.component.scss']
+  styleUrls: ['./cultivations.component.scss'],
+  animations: [
+
+    trigger('showingAnnimation', [
+      transition('* => *', [
+        query(':enter',style({opacity: 0}), {optional: true}),
+        query(':enter',stagger('050ms',[
+          animate('.4s ease-in',keyframes([
+            style({opacity: 0,transform: 'translateY(-20%)',offset:0}),
+            style({opacity: .5,transform: 'translateY(20px)',offset:.3}),
+            style({opacity: 1,transform: 'translateY(0)',offset:1})
+          ]))
+        ]), {optional: true})
+      ])
+    ])
+  ]
 })
 export class CultivationsComponent implements OnInit {
+
+  private loadingSpinner: LoadingSpinnerComponent;
 
   //getting data
   private intervalId;
@@ -49,7 +66,7 @@ export class CultivationsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log(this.router.url);
+    this.loadingSpinner = new LoadingSpinnerComponent();
     this.getTunnels();
     this.getPlants();
     this.getCultivations();
@@ -78,12 +95,20 @@ export class CultivationsComponent implements OnInit {
   }
 
   getCultivations(){
+
+    this.loadingSpinner.startLoadingDate = new Date();
+
     this.getCultivationsSubscription = this._cultivationInfoService.getCultivationsBasicInfo().subscribe(
       data => { this.cultivations = data },
       err => console.error('Erroren :' + err),
       () => {
         if (this.cultivations != null && this.cultivationCommentsShowingState == null) {
           this.cultivationCommentsShowingState = new Array(this.cultivations.length).fill(false);
+        }
+
+        let executionTime = this.loadingSpinner.GetLoadingTime();
+        if(executionTime < this.loadingSpinner.minLoadingTime){
+          setTimeout(()=>{this.loadingSpinner.loadingView = false; }, this.loadingSpinner.minLoadingTime - executionTime)
         }
       }
     );

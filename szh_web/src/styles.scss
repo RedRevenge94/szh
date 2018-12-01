@@ -3,7 +3,6 @@
 @import url('https://fonts.googleapis.com/css?family=Raleway:300,700');
 
 body {
-    //background:#2E9CE6;
     background:rgb(148, 184, 207);
     padding: 3em;
     font-family: 'Raleway', 'Arial';
@@ -26,6 +25,8 @@ a {
     text-decoration:none;
 }
 
+//Oznaczenia statusów online/offline
+
 .OnlineText{
     color: #99FF99;
 }
@@ -34,25 +35,7 @@ a {
     color: rgb(253, 63, 63);
 }
 
-table {
-    border-collapse: collapse;
-    width: 100%;
-}
-
-table, th, td {
-    border: 1px solid black;
-}
-
-tr:first-child { 
-    background-color: #0E7BC5;
-}
-
-td {
-    padding: 5px;
-}
-////
-
-////
+////////////////////////////////////
 
 .container {
     display: grid;
@@ -62,14 +45,15 @@ td {
 .col {
     padding: .4em 1.3em;
 }
+
 .color-dark {
-    background: #2885C4;
+    background: rgb(36, 40, 43);
+    color: #A5F883;
+    font-weight: bold;
 }
+
 .color-light {
-    background: #57B3F1;
-}
-.color-light :hover {
-    //background: #50ABE9;
+    background: rgb(128, 164, 187);
 }
 
 form{
@@ -89,6 +73,14 @@ input.txt {
     width: 40%;
     margin-bottom: 2em;
 }
+
+input.datePicker{
+    border: 0;
+    padding: 1em;
+    width: 10%;
+    margin-bottom: 2em;
+}
+
 input.btn {
     border: 0;
     display:block;

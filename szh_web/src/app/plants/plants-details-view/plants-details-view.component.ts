@@ -3,13 +3,32 @@ import { ISubscription } from 'rxjs/Subscription';
 import { PlantsService } from '../../services/plants.service';
 import { ActivatedRoute } from '@angular/router';
 import { Plant } from '../../models/plant.model';
+import { trigger,style,transition,animate,keyframes,query,stagger } from '@angular/animations';
+import { LoadingSpinnerComponent } from '../../ui/loading-spinner/loading-spinner.component';
 
 @Component({
   selector: 'app-plants-details-view',
   templateUrl: './plants-details-view.component.html',
-  styleUrls: ['./plants-details-view.component.scss']
+  styleUrls: ['./plants-details-view.component.scss'],
+  animations: [
+
+    trigger('showingAnnimation', [
+      transition('* => *', [
+        query(':enter',style({opacity: 0}), {optional: true}),
+        query(':enter',stagger('150ms',[
+          animate('.6s ease-in',keyframes([
+            style({opacity: 0,transform: 'translateY(-20%)',offset:0}),
+            style({opacity: .5,transform: 'translateY(20px)',offset:.3}),
+            style({opacity: 1,transform: 'translateY(0)',offset:1})
+          ]))
+        ]), {optional: true})
+      ])
+    ])
+  ]
 })
 export class PlantsDetailsViewComponent implements OnInit {
+
+  private loadingSpinner: LoadingSpinnerComponent;
 
   plantId;
   plant: Plant;
@@ -23,10 +42,11 @@ export class PlantsDetailsViewComponent implements OnInit {
 
   constructor(private route: ActivatedRoute, private _plantService: PlantsService) {
     this.route.params.subscribe(res => this.plantId = res.id);
-    this.getPlant();
    }
 
   ngOnInit() {
+    this.loadingSpinner = new LoadingSpinnerComponent();
+    this.getPlant();
   }
 
   ngOnDestro(){
@@ -39,10 +59,19 @@ export class PlantsDetailsViewComponent implements OnInit {
   }
 
   getPlant(){
+
+    this.loadingSpinner.startLoadingDate = new Date();
+
     this.getPlantSubscription = this._plantService.getPlant(this.plantId).subscribe(
       data => { this.plant = data },
       err => console.error('Erroren :' + err),
       () => {
+
+        let executionTime = this.loadingSpinner.GetLoadingTime();
+        if(executionTime < this.loadingSpinner.minLoadingTime){
+          setTimeout(()=>{this.loadingSpinner.loadingView = false; }, this.loadingSpinner.minLoadingTime - executionTime)
+        }
+
       }
     );
   }

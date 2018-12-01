@@ -19,8 +19,10 @@ export class TunnelsService {
     return this.http.get<TunnelInfo>(ApiUrlConfigurator.GetApiUrl()  + '/TunnelsInfo');
   }
 
-  getTemperatureForLastWeek(tunnelId){
-    return this.http.get<Measurement[]>(ApiUrlConfigurator.GetApiUrl() + '/Temperature/tunnel/' + tunnelId);
+  getTemperatureForDateRange(tunnelId, dateRange){
+
+    return this.http.get<Measurement[]>(ApiUrlConfigurator.GetApiUrl() + '/Temperature/tunnel/' + tunnelId + 
+    '?startDate=' + dateRange.startDate + '&endDate=' + dateRange.endDate);
   }
 
   createTunnel(tunnelName){

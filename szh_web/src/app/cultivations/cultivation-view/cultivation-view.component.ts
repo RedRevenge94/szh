@@ -5,13 +5,32 @@ import { ISubscription } from 'rxjs/Subscription';
 import { CultivationCommentsService } from '../../services/cultivationComments.service';
 import { CultivationInfo } from '../../models/cultivationInfo.model';
 import { TunnelsService } from '../../services/tunnels.service';
+import { trigger,style,transition,animate,keyframes,query,stagger } from '@angular/animations';
+import { LoadingSpinnerComponent } from '../../ui/loading-spinner/loading-spinner.component';
 
 @Component({
   selector: 'app-cultivation-view',
   templateUrl: './cultivation-view.component.html',
-  styleUrls: ['./cultivation-view.component.scss']
+  styleUrls: ['./cultivation-view.component.scss'],
+  animations: [
+
+    trigger('showingAnnimation', [
+      transition('* => *', [
+        query(':enter',style({opacity: 0}), {optional: true}),
+        query(':enter',stagger('150ms',[
+          animate('.6s ease-in',keyframes([
+            style({opacity: 0,transform: 'translateY(-20%)',offset:0}),
+            style({opacity: .5,transform: 'translateY(20px)',offset:.3}),
+            style({opacity: 1,transform: 'translateY(0)',offset:1})
+          ]))
+        ]), {optional: true})
+      ])
+    ])
+  ]
 })
 export class CultivationViewComponent implements OnInit {
+
+  private loadingSpinner: LoadingSpinnerComponent;
 
   private intervalId;
   private getCultivationsSubscription: ISubscription;
@@ -41,6 +60,7 @@ export class CultivationViewComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.loadingSpinner = new LoadingSpinnerComponent();
     this.editMode = false;
     this.getCultivationInfo();
     this.getTunnels();
@@ -61,10 +81,19 @@ export class CultivationViewComponent implements OnInit {
   }
 
   getCultivationInfo(){
+
+    this.loadingSpinner.startLoadingDate = new Date();
+
     this.getCultivationsSubscription = this._cultivationInfoService.getCultivationInfo(this.cultivationId).subscribe(
       data => { this.cultivation = data },
       err => console.error('Erroren :' + err),
       () => { 
+
+        let executionTime = this.loadingSpinner.GetLoadingTime();
+        if(executionTime < this.loadingSpinner.minLoadingTime){
+          setTimeout(()=>{this.loadingSpinner.loadingView = false; }, this.loadingSpinner.minLoadingTime - executionTime)
+        }
+
       }
     );
   }

@@ -7,9 +7,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoadingSpinnerComponent implements OnInit {
 
-  constructor() { }
+  public minLoadingTime: number;
+  public loadingView: boolean;
+
+  public startLoadingDate: Date;
+  public endLoadingDate: Date;
+
+  constructor(  ) { 
+    this.minLoadingTime = 500;
+    this.loadingView = true;
+  }
 
   ngOnInit() {
+  }
+
+  GetLoadingTime(){
+    this.endLoadingDate = new Date();
+    return this.endLoadingDate.getTime() - this.startLoadingDate.getTime();
   }
 
 }

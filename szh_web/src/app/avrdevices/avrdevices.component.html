@@ -1,76 +1,57 @@
-<!-- Formularz -->
+<span *ngIf="loadingSpinner.loadingView">
+    <app-loading-spinner ></app-loading-spinner>
+</span>
 
+<span [@showingAnnimation] *ngIf="!loadingSpinner.loadingView">  
 
-<!-- Formularz -->
-
-<!--<div class="avrDeviceInfo" *ngFor="let avrDevice of avrDevices">
-  AvrDeviceId: {{avrDevice.avrDevice.id}}
-  <br /> Tunnel: {{avrDevice.avrDevice.tunnel.name}}
-  <br /> Ip: {{avrDevice.avrDevice.ip}}
-  <br />
-  <span *ngIf="avrDevice.avrDevice.last_update != null">
-    Last update: {{avrDevice.avrDevice.last_update | date:'yyyy-MM-dd HH:mm'}}
-    <br />
-  </span>
-  <span *ngIf="avrDevice.avrDevice.last_update == null">
-      Last update: ---
-    <br />
-  </span>
-
-  <div class="OnlineText" *ngIf="avrDevice.online">Online</div>
-  <div class="OfflineText" *ngIf="!avrDevice.online">Offline</div>
-</div>-->
-
-
-<div class="container color-dark">
-    <div class="col">
-      <p>Ip</p>
-    </div>
-    <div class="col">
-      <p>Tunnel </p>
-    </div>
-    <div class="col">
-      <p>Last Update </p>
-    </div>
-    <div class="col">
-      <p>Monitoring </p>
-    </div>
-  </div>
-  <div *ngFor="let avrDevice of avrDevices">
-    <div class="container color-light">
-      <div class="col">
-        <p class="sm">{{avrDevice.avrDevice.ip}}</p>
+    <div class="container color-dark">
+        <div class="col">
+          <p>Ip</p>
+        </div>
+        <div class="col">
+          <p>Tunnel </p>
+        </div>
+        <div class="col">
+          <p>Last Update </p>
+        </div>
+        <div class="col">
+          <p>Monitoring </p>
+        </div>
       </div>
-      <div class="col">
-        <p class="sm">{{avrDevice.avrDevice.tunnel.name}}</p>
+      <div *ngFor="let avrDevice of avrDevices">
+        <div class="container color-light">
+          <div class="col">
+            <p class="sm">{{avrDevice.avrDevice.ip}}</p>
+          </div>
+          <div class="col">
+            <p class="sm">{{avrDevice.avrDevice.tunnel.name}}</p>
+          </div>
+          <div class="col">
+              <p class="sm" *ngIf="avrDevice.avrDevice.last_update != null">{{avrDevice.avrDevice.last_update | date:'yyyy-MM-dd hh:mm'}}</p>
+              <p class="sm" *ngIf="avrDevice.avrDevice.last_update == null"> --- </p>
+          </div>
+          <div class="col">
+            <p class="OnlineText" *ngIf="avrDevice.online">Online</p>
+            <p class="OfflineText" *ngIf="!avrDevice.online">Offline</p>
+          </div>
+        </div>
       </div>
-      <div class="col">
-          <p class="sm" *ngIf="avrDevice.avrDevice.last_update != null">{{avrDevice.avrDevice.last_update | date:'yyyy-MM-dd hh:mm'}}</p>
-          <p class="sm" *ngIf="avrDevice.avrDevice.last_update == null"> --- </p>
+    
+    <div class="OnlineText" *ngIf="messageIsShowing && responseIsOk">
+        <b>Urządzenie pomiarowe dodana prawidłowo</b>
       </div>
-      <div class="col">
-        <p class="OnlineText" *ngIf="avrDevice.online">Online</p>
-        <p class="OfflineText" *ngIf="!avrDevice.online">Offline</p>
+      <div class="OfflineText" *ngIf="messageIsShowing && !responseIsOk">
+        <b>Wystąpił problem podczas tworzenia nowego urządzenia</b>
       </div>
-    </div>
-  </div>
+      
+      <form #avrDeviceFormInfo="ngForm" (ngSubmit)="onAddNewAvrDeviceSubmit(avrDeviceFormInfo.value)">
+        <input type="text" class="txt" name="ip" placeholder="Adres Ip" [(ngModel)]="avrDeviceIpForm">
+        <br />
+        <select name="tunnel" [(ngModel)]="avrDeviceTunnelForm">
+          <option *ngFor="let tunnel of tunnels" value="{{tunnel.id}}">{{tunnel.name}}</option>
+        </select>
+        <br />
+        <input type="submit" class="btn" value="Stwórz urządzenie">
+      </form>
 
-
-
-
-<div class="OnlineText" *ngIf="messageIsShowing && responseIsOk">
-    <b>Urządzenie pomiarowe dodana prawidłowo</b>
-  </div>
-  <div class="OfflineText" *ngIf="messageIsShowing && !responseIsOk">
-    <b>Wystąpił problem podczas tworzenia nowego urządzenia</b>
-  </div>
-  
-  <form #avrDeviceFormInfo="ngForm" (ngSubmit)="onAddNewAvrDeviceSubmit(avrDeviceFormInfo.value)">
-    <input type="text" class="txt" name="ip" placeholder="Adres Ip" [(ngModel)]="avrDeviceIpForm">
-    <br />
-    <select name="tunnel" [(ngModel)]="avrDeviceTunnelForm">
-      <option *ngFor="let tunnel of tunnels" value="{{tunnel.id}}">{{tunnel.name}}</option>
-    </select>
-    <br />
-    <input type="submit" class="btn" value="Stwórz urządzenie">
-  </form>
+</span>

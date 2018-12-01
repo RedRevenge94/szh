@@ -1,24 +1,32 @@
-<div *ngFor="let plant of plantSpecies">
-  <div class="infoBoxHeader">{{plant.name}}</div>
-  <div class="infoBox">
-    Odmiany ({{plant.varieties.length}}): <br />
-    <ul>
-      <li *ngFor="let variety of plant.varieties">{{variety.name}}</li>
-      <li><p class="moreLink" (click)="showPlantDetails(plant.id)">Więcej...</p></li>
-    </ul>
-  </div>
-</div>
+<span *ngIf="loadingSpinner.loadingView">
+    <app-loading-spinner ></app-loading-spinner>
+</span>
 
-<!-- Dodawanie nowej rośliny -->
+<span [@showingAnnimation] *ngIf="!loadingSpinner.loadingView">
 
-<div class="OnlineText" *ngIf="messageIsShowing && responseIsOk">
-  <b>Roślina dodana prawidłowo</b>
-</div>
-<div class="OfflineText" *ngIf="messageIsShowing && !responseIsOk">
-  <b>Wystąpił problem podczas tworzenia nowej rośliny</b>
-</div>
+    <div *ngFor="let plant of plantSpecies">
+        <div class="infoBoxHeader">{{plant.name}}</div>
+        <div class="infoBox">
+          Odmiany ({{plant.varieties.length}}): <br />
+          <ul>
+            <li *ngFor="let variety of plant.varieties">{{variety.name}}</li>
+            <li><p class="moreLink" (click)="showPlantDetails(plant.id)">Więcej...</p></li>
+          </ul>
+        </div>
+      </div>
+      
+      <!-- Dodawanie nowej rośliny -->
+      
+      <div class="OnlineText" *ngIf="messageIsShowing && responseIsOk">
+        <b>Roślina dodana prawidłowo</b>
+      </div>
+      <div class="OfflineText" *ngIf="messageIsShowing && !responseIsOk">
+        <b>Wystąpił problem podczas tworzenia nowej rośliny</b>
+      </div>
+      
+      <form #plantSpeciesName="ngForm" (ngSubmit)="onAddNewPlantSpeciesSubmit(plantSpeciesName.value)">
+      <input type="text" class="txt" name="name" placeholder="Nazwa nowego gatunku rośliny" [(ngModel)]="newPlantSpeciesName">
+      <input type="submit" class="btn" value="Dodaj gatunek rośliny">
+      </form>
 
-<form #plantSpeciesName="ngForm" (ngSubmit)="onAddNewPlantSpeciesSubmit(plantSpeciesName.value)">
-<input type="text" class="txt" name="name" placeholder="Nazwa nowego gatunku rośliny" [(ngModel)]="newPlantSpeciesName">
-<input type="submit" class="btn" value="Dodaj gatunek rośliny">
-</form>
+</span>

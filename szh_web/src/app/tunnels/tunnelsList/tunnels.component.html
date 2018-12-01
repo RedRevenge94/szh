@@ -1,22 +1,24 @@
-<span *ngIf="loadingView">
+<span *ngIf="loadingSpinner.loadingView">
     <app-loading-spinner ></app-loading-spinner>
 </span>
 
-<span [@tunnelsAnnimation] *ngIf="!loadingView">
+<span [@showingAnnimation] *ngIf="!loadingSpinner.loadingView">
     <div *ngFor="let tunnel of tunnels">
-        <div class="infoBoxHeader">{{tunnel.tunnel.name}}</div>
-        <div class="infoBox">
-          <div class="leftInfoBox">
-              Ilość hodowli: {{tunnel.cultivations.length}} <br />
-              Monitoring: {{tunnel.online}} <br />
-              <p class="moreLink" (click)="showTunnelDetails(tunnel.tunnel.id)">Więcej...</p>
-          </div>
-    
-          <div class="rightInfoBox">
-              <span *ngIf="tunnel.temperature != null">{{tunnel.temperature}} &#176; C</span>
-              <span *ngIf="tunnel.temperature == null">--- &#176; C</span>
-          </div>
-          <div style="clear: both;"></div>
+        <div  class="infoBoxContainer">
+            <div class="infoBoxHeader">{{tunnel.tunnel.name}}</div>
+            <div class="infoBox">
+            <div class="leftInfoBox">
+                Ilość hodowli: {{tunnel.cultivations.length}} <br />
+                Monitoring: {{tunnel.online}} <br />
+                <p class="moreLink" (click)="showTunnelDetails(tunnel.tunnel.id)">Więcej...</p>
+            </div>
+        
+            <div class="rightInfoBox">
+                <span *ngIf="tunnel.temperature != null">{{tunnel.temperature}} &#176; C</span>
+                <span *ngIf="tunnel.temperature == null">--- &#176; C</span>
+            </div>
+            <div style="clear: both;"></div>
+            </div>
         </div>
     </div>
     

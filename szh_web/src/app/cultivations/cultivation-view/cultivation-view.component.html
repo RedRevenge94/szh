@@ -1,76 +1,177 @@
-<div class="container color-dark">
-  <div class="col"><p>{{cultivation?.cultivation.name}} <span *ngIf="cultivation?.cultivation.plant.variety != null">- {{cultivation?.cultivation.plant.variety.name}}</span></p></div>
-</div>
-<div class="cultivationInfo">
+<span *ngIf="loadingSpinner.loadingView">
+    <app-loading-spinner ></app-loading-spinner>
+</span>
 
-  <span *ngIf="!editMode">
-    Ilość: {{cultivation?.cultivation.pieces}}
-    <br /> Tunel: {{cultivation?.cultivation.tunnel.name}}
-    <br /> Data startu:
-    <span *ngIf="cultivation?.cultivation.start_date != null">{{cultivation?.cultivation.start_date | date:'yyyy-MM-dd'}}</span>
-    <span *ngIf="cultivation?.cultivation.start_date == null"> --- </span>
-    <br /> Data zakończenia:
-    <span *ngIf="cultivation?.cultivation.end_date != null">{{cultivation?.cultivation.end_date | date:'yyyy-MM-dd'}}</span>
-    <span *ngIf="cultivation?.cultivation.end_date == null"> --- </span>
-    <br />
+<span [@showingAnnimation] *ngIf="!loadingSpinner.loadingView">
 
-    <span class="OnlineText" *ngIf="cultivation?.online">Online</span>
-    <span class="OfflineText" *ngIf="!cultivation?.online">Offline</span>
+    <div  class="infoBoxContainer">
 
-    <input type="submit" class="btn" value="Edytuj" (click)="TurnOnOffEditMode(true)">
-  </span>
+        <div class="infoBoxHeader">{{cultivation?.cultivation.name}}
+            <span *ngIf="cultivation?.cultivation.plant.variety != null">- {{cultivation?.cultivation.plant.variety.name}}</span>
+        </div>
+        <div class="infoBox">
+            <span *ngIf="!editMode">
+                Ilość: {{cultivation?.cultivation.pieces}}
+                <br /> Tunel: {{cultivation?.cultivation.tunnel.name}}
+                <br /> Data startu:
+                <span *ngIf="cultivation?.cultivation.start_date != null">{{cultivation?.cultivation.start_date | date:'yyyy-MM-dd'}}</span>
+                <span *ngIf="cultivation?.cultivation.start_date == null"> --- </span>
+                <br /> Data zakończenia:
+                <span *ngIf="cultivation?.cultivation.end_date != null">{{cultivation?.cultivation.end_date | date:'yyyy-MM-dd'}}</span>
+                <span *ngIf="cultivation?.cultivation.end_date == null"> --- </span>
+                <br />
+            
+                <span class="OnlineText" *ngIf="cultivation?.online">Online</span>
+                <span class="OfflineText" *ngIf="!cultivation?.online">Offline</span>
+            
+                <input type="submit" class="btn" value="Edytuj" (click)="TurnOnOffEditMode(true)">
+              </span>
+            
+              <span *ngIf="editMode">
+            
+                <form #cultivationUpdateForm="ngForm" (ngSubmit)="SaveChanges(cultivationUpdateForm.value)">
+            
+                  Nazwa: <input type="text" class="txt" name="name" [(ngModel)]="cultivation?.cultivation.name">
+                  <br /> Roślina: {{cultivation?.cultivation.plant.plantSpecies.name}}
+                  <br /> Ilość: <input type="text" class="txt" name="pieces" [(ngModel)]="cultivation?.cultivation.pieces">
+                  
+                  <br /> Tunel: 
+                  <select name="tunnel" [ngModel]="cultivation?.cultivation.tunnel.id">
+                      <option *ngFor="let tunnel of tunnels" value="{{tunnel.id}}">{{tunnel.name}}</option>
+                  </select>
+            
+                <br /> Data startu:
+                <input type="date" class="txt" name="start_date" [ngModel]="cultivation?.cultivation.start_date | date:'yyyy-MM-dd'">
+                <br /> Data zakończenia:
+                <input type="date" class="txt" name="end_date" [ngModel]="cultivation?.cultivation.end_date | date:'yyyy-MM-dd'">
+                <br />
+            
+                  <input type="submit" class="btn" value="Zapisz zmiany">
+                  <input type="button" class="btn" value="Anuluj" (click)="TurnOnOffEditMode(false)">
+                  
+                </form>
+            
+              </span>
 
-  <span *ngIf="editMode">
+                  <div class="container color-dark">
+                      <div class="col">
+                        <p>Treść</p>
+                      </div>
+                      <div class="col">
+                        <p>Data </p>
+                      </div>
+                  </div>
+                  <div *ngFor="let comment of cultivation?.cultivationComments">
+                      <div class="container color-light">
+                          <div class="col">
+                              <p class="sm">
+                                  {{comment.text}}
+                              </p>
+                          </div>
+                          <div class="col">
+                              <p class="sm">
+                                  {{comment.create_date | date:'yyyy-MM-dd hh:mm'}}
+                              </p>
+                          </div>
+                      </div> 
+                  </div>
+                  <div class="container color-light">
+                      <div class="col">
+                          <p class="sm">
+                              <textarea rows="4" style="width:100%;" class="txt" name="text" [(ngModel)]="commentTextForm">Treść komentarza ...</textarea>
+                          </p>
+                      </div>
+                      <div class="col">
+                          <p class="sm">
+                              <input type="submit" class="btn" value="Dodaj komentarz">
+                          </p>
+                      </div>
+                  </div>
+        </div>
 
-    <form #cultivationUpdateForm="ngForm" (ngSubmit)="SaveChanges(cultivationUpdateForm.value)">
+    </div>
 
-      Nazwa: <input type="text" class="txt" name="name" [(ngModel)]="cultivation?.cultivation.name">
-      <br /> Roślina: {{cultivation?.cultivation.plant.plantSpecies.name}}
-      <br /> Ilość: <input type="text" class="txt" name="pieces" [(ngModel)]="cultivation?.cultivation.pieces">
+</span>
+
+<!--
+
+
+ <div class="container color-dark">
+        <div class="col"><p>{{cultivation?.cultivation.name}} <span *ngIf="cultivation?.cultivation.plant.variety != null">- {{cultivation?.cultivation.plant.variety.name}}</span></p></div>
+      </div>
+      <div class="cultivationInfo">
       
-      <br /> Tunel: 
-      <select name="tunnel" [ngModel]="cultivation?.cultivation.tunnel.id">
-          <option *ngFor="let tunnel of tunnels" value="{{tunnel.id}}">{{tunnel.name}}</option>
-      </select>
-
-    <br /> Data startu:
-    <input type="date" class="txt" name="start_date" [ngModel]="cultivation?.cultivation.start_date | date:'yyyy-MM-dd'">
-    <br /> Data zakończenia:
-    <input type="date" class="txt" name="end_date" [ngModel]="cultivation?.cultivation.end_date | date:'yyyy-MM-dd'">
-    <br />
-
-      <input type="submit" class="btn" value="Zapisz zmiany">
-      <input type="button" class="btn" value="Anuluj" (click)="TurnOnOffEditMode(false)">
+        <span *ngIf="!editMode">
+          Ilość: {{cultivation?.cultivation.pieces}}
+          <br /> Tunel: {{cultivation?.cultivation.tunnel.name}}
+          <br /> Data startu:
+          <span *ngIf="cultivation?.cultivation.start_date != null">{{cultivation?.cultivation.start_date | date:'yyyy-MM-dd'}}</span>
+          <span *ngIf="cultivation?.cultivation.start_date == null"> --- </span>
+          <br /> Data zakończenia:
+          <span *ngIf="cultivation?.cultivation.end_date != null">{{cultivation?.cultivation.end_date | date:'yyyy-MM-dd'}}</span>
+          <span *ngIf="cultivation?.cultivation.end_date == null"> --- </span>
+          <br />
       
-    </form>
+          <span class="OnlineText" *ngIf="cultivation?.online">Online</span>
+          <span class="OfflineText" *ngIf="!cultivation?.online">Offline</span>
+      
+          <input type="submit" class="btn" value="Edytuj" (click)="TurnOnOffEditMode(true)">
+        </span>
+      
+        <span *ngIf="editMode">
+      
+          <form #cultivationUpdateForm="ngForm" (ngSubmit)="SaveChanges(cultivationUpdateForm.value)">
+      
+            Nazwa: <input type="text" class="txt" name="name" [(ngModel)]="cultivation?.cultivation.name">
+            <br /> Roślina: {{cultivation?.cultivation.plant.plantSpecies.name}}
+            <br /> Ilość: <input type="text" class="txt" name="pieces" [(ngModel)]="cultivation?.cultivation.pieces">
+            
+            <br /> Tunel: 
+            <select name="tunnel" [ngModel]="cultivation?.cultivation.tunnel.id">
+                <option *ngFor="let tunnel of tunnels" value="{{tunnel.id}}">{{tunnel.name}}</option>
+            </select>
+      
+          <br /> Data startu:
+          <input type="date" class="txt" name="start_date" [ngModel]="cultivation?.cultivation.start_date | date:'yyyy-MM-dd'">
+          <br /> Data zakończenia:
+          <input type="date" class="txt" name="end_date" [ngModel]="cultivation?.cultivation.end_date | date:'yyyy-MM-dd'">
+          <br />
+      
+            <input type="submit" class="btn" value="Zapisz zmiany">
+            <input type="button" class="btn" value="Anuluj" (click)="TurnOnOffEditMode(false)">
+            
+          </form>
+      
+        </span>
+      
+      
+      
+      </div>
+      
+      <div class="cultivationInfoComments">
+        <form #cultivationCommentFormInfo="ngForm" (ngSubmit)="onAddNewCultivationCommentSubmit(cultivationCommentFormInfo.value)">
+          <table>
+            <tr>
+              <th *ngFor="let col of columns">
+                {{col}}
+              </th>
+            </tr>
+            <tr *ngFor="let comment of cultivation?.cultivationComments">
+              <td> {{comment.text}} </td>
+              <td> {{comment.create_date | date:'yyyy-MM-dd hh:mm'}} </td>
+            </tr>
+            <tr>
+              <td>
+                <input type="hidden" name="cultivation" [(ngModel)]="cultivation?.cultivation.id">
+                <textarea rows="4" cols="50" class="txt" name="text" [(ngModel)]="commentTextForm">Treść komentarza ...</textarea>
+              </td>
+              <td>
+                <input type="submit" class="btn" value="Dodaj komentarz">
+              </td>
+            </tr>
+          </table>
+        </form>
+      </div>
 
-  </span>
 
-
-
-</div>
-
-<div class="cultivationInfoComments">
-  <form #cultivationCommentFormInfo="ngForm" (ngSubmit)="onAddNewCultivationCommentSubmit(cultivationCommentFormInfo.value)">
-    <table>
-      <tr>
-        <th *ngFor="let col of columns">
-          {{col}}
-        </th>
-      </tr>
-      <tr *ngFor="let comment of cultivation?.cultivationComments">
-        <td> {{comment.text}} </td>
-        <td> {{comment.create_date | date:'yyyy-MM-dd hh:mm'}} </td>
-      </tr>
-      <tr>
-        <td>
-          <input type="hidden" name="cultivation" [(ngModel)]="cultivation?.cultivation.id">
-          <textarea rows="4" cols="50" class="txt" name="text" [(ngModel)]="commentTextForm">Treść komentarza ...</textarea>
-        </td>
-        <td>
-          <input type="submit" class="btn" value="Dodaj komentarz">
-        </td>
-      </tr>
-    </table>
-  </form>
-</div>
+-->

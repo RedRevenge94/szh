@@ -10,13 +10,16 @@
 }
 
 .container {
-    display: grid;
-    grid-template-columns: 100% ;
+    grid-template-columns: 50% 50% ;
 }
 
 .color-dark {
     color: #A5F883;
     font-size: 18px;
     font-weight: bold;
-    padding-top: 0px;
+    padding: 0px 0px;
+}
+
+.col {
+    padding: 0em 1.3em;
 }

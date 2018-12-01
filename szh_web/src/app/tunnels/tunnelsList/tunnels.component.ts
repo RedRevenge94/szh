@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ISubscription } from 'rxjs/Subscription';
 import { TunnelsService } from '../../services/tunnels.service';
 import { trigger,style,transition,animate,keyframes,query,stagger } from '@angular/animations';
-import { delay } from 'q';
+import { LoadingSpinnerComponent } from '../../ui/loading-spinner/loading-spinner.component';
 
 @Component({
   selector: 'app-tunnels',
@@ -11,10 +11,10 @@ import { delay } from 'q';
   styleUrls: ['./tunnels.component.scss'],
   animations: [
 
-    trigger('tunnelsAnnimation', [
+    trigger('showingAnnimation', [
       transition('* => *', [
         query(':enter',style({opacity: 0}), {optional: true}),
-        query(':enter',stagger('300ms',[
+        query(':enter',stagger('150ms',[
           animate('.6s ease-in',keyframes([
             style({opacity: 0,transform: 'translateY(-20%)',offset:0}),
             style({opacity: .5,transform: 'translateY(20px)',offset:.3}),
@@ -27,8 +27,7 @@ import { delay } from 'q';
 })
 export class TunnelsComponent implements OnInit {
 
-  minLoadingTime = 500;
-  loadingView: boolean = true;
+  private loadingSpinner: LoadingSpinnerComponent;
 
   private intervalId;
   private getTunnelsSubscription: ISubscription;
@@ -49,6 +48,7 @@ export class TunnelsComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.loadingSpinner = new LoadingSpinnerComponent();
     this.getTunnels();
     this.intervalId = setInterval(() => { this.getTunnels(); }, 5000);
   }
@@ -71,7 +71,7 @@ export class TunnelsComponent implements OnInit {
 
   getTunnels() {
 
-    var start = new Date().getTime();
+    this.loadingSpinner.startLoadingDate = new Date();
 
     this.getTunnelsSubscription = this._tunnelService.getTunnelsInfo().subscribe(
       data => { this.tunnels = data },
@@ -81,10 +81,9 @@ export class TunnelsComponent implements OnInit {
           this.breedingShowingState = new Array(this.tunnels.length).fill(false);
         }
 
-        var end = new Date().getTime();
-        var executionTime = end - start;
-        if(executionTime < this.minLoadingTime){
-          setTimeout(()=>{this.loadingView = false; }, this.minLoadingTime - executionTime)
+        let executionTime = this.loadingSpinner.GetLoadingTime();
+        if(executionTime < this.loadingSpinner.minLoadingTime){
+          setTimeout(()=>{this.loadingSpinner.loadingView = false; }, this.loadingSpinner.minLoadingTime - executionTime)
         }
       }
     );

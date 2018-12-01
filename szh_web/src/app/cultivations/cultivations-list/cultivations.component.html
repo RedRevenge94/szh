@@ -1,102 +1,110 @@
-<div class="container color-dark">
-  <div class="col">
-    <p>Nazwa</p>
-  </div>
-  <div class="col">
-    <p>Roślina </p>
-  </div>
-  <div class="col">
-    <p>Odmiana </p>
-  </div>
-  <div class="col">
-    <p>Ilość </p>
-  </div>
-  <div class="col">
-    <p>Tunel </p>
-  </div>
-  <div class="col">
-    <p>Czas startu </p>
-  </div>
-  <div class="col">
-    <p>Czas końca </p>
-  </div>
-  <div class="col">
-    <p>Status </p>
-  </div>
-</div>
-<div *ngFor="let cultivation of cultivations">
-  <div class="container color-light">
-    <div class="col">
-      <p class="sm">
-        <span class="moreLink" (click)="showCutlivationComments(cultivation.cultivation.id)">
-           {{cultivation.cultivation.name}}
-        </span>
-      </p>
-    </div>
-    <div class="col">
-      <p class="sm">
-          <span class="moreLink" (click)="onPlantTunnelDetails(cultivation.cultivation.plant.plantSpecies.id)">
-             {{cultivation.cultivation.plant.plantSpecies.name}}
-          </span>
-        </p>
-    </div>
-    <div class="col">
-      <p class="sm" *ngIf="cultivation.cultivation.plant.variety != null">{{cultivation.cultivation.plant.variety.name}}</p>
-      <p class="sm" *ngIf="cultivation.cultivation.plant.variety == null">---</p>
-    </div>
-    <div class="col">
-      <p class="sm">{{cultivation.cultivation.pieces}}</p>
-    </div>
-    <div class="col">
-      <p class="sm">
-        <span class="moreLink" (click)="onShowTunnelDetails(cultivation.cultivation.tunnel.id)">
-          {{cultivation.cultivation.tunnel.name}}
-        </span>
-      </p>
-    </div>
-    <div class="col">
-      <p class="sm" *ngIf="cultivation.cultivation.start_date != null">{{cultivation.cultivation.start_date | date:'yyyy-MM-dd'}}</p>
-      <p class="sm" *ngIf="cultivation.cultivation.start_date == null"> --- </p>
-    </div>
-    <div class="col">
-      <p class="sm" *ngIf="cultivation.cultivation.end_date != null">{{cultivation.cultivation.end_date | date:'yyyy-MM-dd'}}</p>
-      <p class="sm" *ngIf="cultivation.cultivation.end_date == null"> --- </p>
-    </div>
-    <div class="col">
-      <p class="OnlineText" *ngIf="cultivation.online">Online</p>
-      <p class="OfflineText" *ngIf="!cultivation.online">Offline</p>
-    </div>
-  </div>
-</div>
+<span *ngIf="loadingSpinner.loadingView">
+    <app-loading-spinner ></app-loading-spinner>
+</span>
 
+<span [@showingAnnimation] *ngIf="!loadingSpinner.loadingView">
 
-<div class="OnlineText" *ngIf="messageIsShowing && responseIsOk">
-  <b>Uprawa dodana prawidłowo</b>
-</div>
-<div class="OfflineText" *ngIf="messageIsShowing && !responseIsOk">
-  <b>Wystąpił problem podczas tworzenia nowej uprawy</b>
-</div>
+    <div class="container color-dark">
+        <div class="col">
+          <p>Nazwa</p>
+        </div>
+        <div class="col">
+          <p>Roślina </p>
+        </div>
+        <div class="col">
+          <p>Odmiana </p>
+        </div>
+        <div class="col">
+          <p>Ilość </p>
+        </div>
+        <div class="col">
+          <p>Tunel </p>
+        </div>
+        <div class="col">
+          <p>Czas startu </p>
+        </div>
+        <div class="col">
+          <p>Czas końca </p>
+        </div>
+        <div class="col">
+          <p>Status </p>
+        </div>
+      </div>
+      <div *ngFor="let cultivation of cultivations">
+        <div class="container color-light">
+          <div class="col">
+            <p class="sm">
+              <span class="moreLink" (click)="showCutlivationComments(cultivation.cultivation.id)">
+                 {{cultivation.cultivation.name}}
+              </span>
+            </p>
+          </div>
+          <div class="col">
+            <p class="sm">
+                <span class="moreLink" (click)="onPlantTunnelDetails(cultivation.cultivation.plant.plantSpecies.id)">
+                   {{cultivation.cultivation.plant.plantSpecies.name}}
+                </span>
+              </p>
+          </div>
+          <div class="col">
+            <p class="sm" *ngIf="cultivation.cultivation.plant.variety != null">{{cultivation.cultivation.plant.variety.name}}</p>
+            <p class="sm" *ngIf="cultivation.cultivation.plant.variety == null">---</p>
+          </div>
+          <div class="col">
+            <p class="sm">{{cultivation.cultivation.pieces}}</p>
+          </div>
+          <div class="col">
+            <p class="sm">
+              <span class="moreLink" (click)="onShowTunnelDetails(cultivation.cultivation.tunnel.id)">
+                {{cultivation.cultivation.tunnel.name}}
+              </span>
+            </p>
+          </div>
+          <div class="col">
+            <p class="sm" *ngIf="cultivation.cultivation.start_date != null">{{cultivation.cultivation.start_date | date:'yyyy-MM-dd'}}</p>
+            <p class="sm" *ngIf="cultivation.cultivation.start_date == null"> --- </p>
+          </div>
+          <div class="col">
+            <p class="sm" *ngIf="cultivation.cultivation.end_date != null">{{cultivation.cultivation.end_date | date:'yyyy-MM-dd'}}</p>
+            <p class="sm" *ngIf="cultivation.cultivation.end_date == null"> --- </p>
+          </div>
+          <div class="col">
+            <p class="OnlineText" *ngIf="cultivation.online">Online</p>
+            <p class="OfflineText" *ngIf="!cultivation.online">Offline</p>
+          </div>
+        </div>
+      </div>
+      
+      
+      <div class="OnlineText" *ngIf="messageIsShowing && responseIsOk">
+        <b>Uprawa dodana prawidłowo</b>
+      </div>
+      <div class="OfflineText" *ngIf="messageIsShowing && !responseIsOk">
+        <b>Wystąpił problem podczas tworzenia nowej uprawy</b>
+      </div>
+      
+      <form #cultivationFormInfo="ngForm" (ngSubmit)="onAddNewCultivationSubmit(cultivationFormInfo.value)">
+        <input type="text" class="txt" name="name" placeholder="Nazwa nowej hodowli" [(ngModel)]="cultivationNameForm">
+        <br />
+        <select name="plantSpeciesId" [(ngModel)]="cultivationPlantForm" (change)="onPlantSelectChange(cultivationPlantForm)">
+          <option *ngFor="let plant of plants" value="{{plant.id}}">{{plant.name}}</option>
+        </select>
+      
+        <br />
+        <select name="varietyId" [(ngModel)]="cultivationVarietyForm">
+          <option *ngFor="let variety of varieties" value="{{variety.id}}">{{variety.name}}</option>
+        </select>
+      
+        <br />
+        <input type="text" class="txt" name="pieces" placeholder="Liczba sztuk" [(ngModel)]="cultivationPiecesForm">
+        <br />
+        <select name="tunnelId" [(ngModel)]="cultivationTunnelForm">
+          <option *ngFor="let tunnel of tunnels" value="{{tunnel.id}}">{{tunnel.name}}</option>
+        </select>
+        <br />
+        <input type="date" class="txt" name="start_date" placeholder="Startdate" [(ngModel)]="cultivationStartDateForm">
+        <br />
+        <input type="submit" class="btn" value="Stwórz uprawę">
+      </form>
 
-<form #cultivationFormInfo="ngForm" (ngSubmit)="onAddNewCultivationSubmit(cultivationFormInfo.value)">
-  <input type="text" class="txt" name="name" placeholder="Nazwa nowej hodowli" [(ngModel)]="cultivationNameForm">
-  <br />
-  <select name="plantSpeciesId" [(ngModel)]="cultivationPlantForm" (change)="onPlantSelectChange(cultivationPlantForm)">
-    <option *ngFor="let plant of plants" value="{{plant.id}}">{{plant.name}}</option>
-  </select>
-
-  <br />
-  <select name="varietyId" [(ngModel)]="cultivationVarietyForm">
-    <option *ngFor="let variety of varieties" value="{{variety.id}}">{{variety.name}}</option>
-  </select>
-
-  <br />
-  <input type="text" class="txt" name="pieces" placeholder="Liczba sztuk" [(ngModel)]="cultivationPiecesForm">
-  <br />
-  <select name="tunnelId" [(ngModel)]="cultivationTunnelForm">
-    <option *ngFor="let tunnel of tunnels" value="{{tunnel.id}}">{{tunnel.name}}</option>
-  </select>
-  <br />
-  <input type="date" class="txt" name="start_date" placeholder="Startdate" [(ngModel)]="cultivationStartDateForm">
-  <br />
-  <input type="submit" class="btn" value="Stwórz uprawę">
-</form>
+</span>

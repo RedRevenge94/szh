@@ -1,3 +1,16 @@
-<div class="chart" *ngIf="tempChart">
-    <canvas id="canvas">{{tempChart}}</canvas>
-</div>
+<span *ngIf="loadingView">
+        <app-loading-spinner ></app-loading-spinner>
+</span>
+
+<span [@tunnelsAnnimation]>
+    <div class="chart" *ngIf="tempChart" >
+        <canvas id="canvas" >{{tempChart}}</canvas>
+    </div>
+</span>
+
+<form *ngIf="!loadingView" #cultivationFormInfo="ngForm" (ngSubmit)="onSetDateFilter()">
+        
+        <input type="date" class="datePicker" name="start_date" placeholder="Start_date" [(ngModel)]="startDateForm"> - 
+        <input type="date" class="datePicker" name="end_date" placeholder="End_date" [(ngModel)]="endDateForm">
+        <input type="submit" class="btn" value="Zastosuj">
+</form>
