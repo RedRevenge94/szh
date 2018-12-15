@@ -79,6 +79,9 @@ export class PlantsDetailsViewComponent implements OnInit {
   onAddNewVarietySubmit(varietyInfo){
     console.log(varietyInfo);
     this.addNewVarietySubscription = this._plantService.createVariety(varietyInfo).subscribe(
+      data => { },
+      err => { this.responseIsOk = false; this.messageIsShowing = true; console.log(err);},
+      () => { this.responseIsOk = true; this.messageIsShowing = true; this.getPlant();}
     );
   }
 

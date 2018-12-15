@@ -128,7 +128,7 @@ export class TunnelDetailsComponent implements OnInit {
                 type: 'time',
                 time: {
                   displayFormats:{
-                    quarter: 'DD.MM hh:mm'
+                    hour: 'DD.MM HH:mm'
                   }
                 },
                 display: true,
@@ -143,9 +143,6 @@ export class TunnelDetailsComponent implements OnInit {
       
       }, this.minLoadingTime - executionTime)
     }
-
-    
-
   }
 
 }

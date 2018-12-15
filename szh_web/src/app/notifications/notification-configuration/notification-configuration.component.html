@@ -1,0 +1,113 @@
+<span *ngIf="loadingSpinner.loadingView">
+    <app-loading-spinner ></app-loading-spinner>
+</span>
+
+<span [@showingAnnimation] *ngIf="!loadingSpinner.loadingView">
+
+    <div class="container color-dark">
+        <div class="col">
+          <p>Tunel</p>
+        </div>
+        <div class="col">
+          <p>Właściwość</p>
+        </div>
+        <div class="col">
+          <p>Warunek </p>
+        </div>
+        <div class="col">
+          <p>Wartość </p>
+        </div>
+        <div class="col">
+          <p>Adresy email </p>
+        </div>
+        <div class="col">
+          <p>Ponawiaj co </p>
+        </div>
+        <div class="col">
+          <p>Aktywny </p>
+        </div>
+      </div>
+      <div *ngFor="let notification of notifications">
+        <div class="container color-light">
+          <div class="col">
+            <p class="sm">
+                <span class="moreLink" (click)="onShowTunnelDetails(notification.tunnel.id)">
+                    {{notification.tunnel.name}}
+                  </span>
+            </p>
+          </div>
+          <div class="col">
+            <p class="sm">
+                {{notification.measurement_type}}
+              </p>
+          </div>
+          <div class="col">
+            <p  class="sm">
+                {{notification.condition}}
+            </p>
+          </div>
+          <div class="col">
+              <p  class="sm">
+                  {{notification.value}}
+                </p>
+          </div>
+          <div class="col">
+            <p class="sm">
+                {{notification.receivers}}
+            </p>
+          </div>
+          <div class="col">
+             <p class="sm" > {{notification.repeat_after}}</p>
+          </div>
+          <div class="col">
+            <p class="sm" *ngIf="notification.isActive"> Tak </p>
+            <p class="sm" *ngIf="!notification.isActive"> Nie </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="OnlineText" *ngIf="messageIsShowing && responseIsOk">
+          <b>Powiadomienie dodano prawidłowo</b>
+        </div>
+        <div class="OfflineText" *ngIf="messageIsShowing && !responseIsOk">
+          <b>Wystąpił problem podczas tworzenia nowego powiadomienia</b>
+        </div>
+        
+        <form #notificationFormInfo="ngForm" (ngSubmit)="onAddNewNotificationSubmit(notificationFormInfo.value)">
+
+            <select name="tunnel" [(ngModel)]="notificationTunnelForm">
+                <option *ngFor="let tunnel of tunnels" value="{{tunnel.id}}">{{tunnel.name}}</option>
+            </select>
+            <br />
+
+            <select name="measurement_type" [(ngModel)]="notificationMeasurementTypeForm">
+                <option *ngFor="let measurement_type of measurement_types"
+                 value="{{measurement_type.id}}">{{measurement_type.name}}</option>
+            </select>
+            <br />
+
+            <select name="condition" [(ngModel)]="notificationConditionForm">
+                <option value="<">&lt;</option>
+                <option value=">">&gt;</option>
+            </select>
+            <br />
+
+            <input type="text" class="txt" name="value" placeholder="Wartość graniczna" 
+          [(ngModel)]="notificationValueForm">
+          <br />
+
+          <input type="text" class="txt" name="receivers" placeholder="Adresy email oddzielone przecinkiem" 
+          [(ngModel)]="notificationReceviersForm">
+          <br />
+
+          <input type="text" class="txt" name="repeat_after" placeholder="Ponawiaj co " 
+          [(ngModel)]="notificationRepeatAfterForm">
+          <br />
+
+          Aktywny: <input type="checkbox" class="txt" name="isActive" [(ngModel)]="notificationIsActiveForm">
+          <br />
+
+          <input type="submit" class="btn" value="Stwórz powiadomienie">
+        </form>
+
+</span>

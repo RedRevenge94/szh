@@ -8,6 +8,7 @@ import { CultivationViewComponent } from './cultivations/cultivation-view/cultiv
 import { TunnelDetailsComponent } from './tunnels/tunnelDetailsView/tunnel-details.component';
 import { PlantsViewComponent } from './plants/plantsView/plants-view/plants-view.component';
 import { PlantsDetailsViewComponent } from './plants/plants-details-view/plants-details-view.component';
+import { NotificationConfigurationComponent } from './notifications/notification-configuration/notification-configuration.component';
 
 const routes: Routes = [
   {
@@ -41,6 +42,10 @@ const routes: Routes = [
   {
     path: 'avrdevices',
     component: AvrdevicesComponent
+  },
+  {
+    path: 'notifications',
+    component: NotificationConfigurationComponent
   },
 ];
 

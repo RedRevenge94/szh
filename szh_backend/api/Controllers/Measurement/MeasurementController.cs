@@ -10,6 +10,11 @@ namespace api.Controllers {
             return new ObjectResult(Measurement.GetMeasurement(id));
         }
 
+        [HttpGet("types", Name = "GetMeasurementTypes")]
+        public IActionResult GetMeasurementTypes() {
+            return new ObjectResult(MeasurementType.GetMeasurementTypes());
+        }
+
         [HttpPost]
         public IActionResult PostMeasurement([FromBody] Measurement measurement) {
 

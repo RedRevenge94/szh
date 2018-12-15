@@ -21,6 +21,9 @@ import { TunnelDetailsComponent } from './tunnels/tunnelDetailsView/tunnel-detai
 import { PlantsViewComponent } from './plants/plantsView/plants-view/plants-view.component';
 import { PlantsDetailsViewComponent } from './plants/plants-details-view/plants-details-view.component';
 import { LoadingSpinnerComponent } from './ui/loading-spinner/loading-spinner.component';
+import { NotificationConfigurationComponent } from './notifications/notification-configuration/notification-configuration.component';
+import { NotificationsService } from './services/notifications.service';
+import { MeasurementsService } from './services/measurements.service';
 
 @NgModule({
   declarations: [
@@ -33,7 +36,8 @@ import { LoadingSpinnerComponent } from './ui/loading-spinner/loading-spinner.co
     TunnelDetailsComponent,
     PlantsViewComponent,
     PlantsDetailsViewComponent,
-    LoadingSpinnerComponent
+    LoadingSpinnerComponent,
+    NotificationConfigurationComponent
   ],
   imports: [
     BrowserModule,
@@ -43,7 +47,7 @@ import { LoadingSpinnerComponent } from './ui/loading-spinner/loading-spinner.co
     HttpClientModule
   ],
   providers: [TunnelsService,CultivationsService, AvrDevicesService, PlantsService, CultivationCommentsService,
-    VarietiesService],
+    VarietiesService, NotificationsService, MeasurementsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

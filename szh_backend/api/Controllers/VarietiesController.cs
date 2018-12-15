@@ -27,7 +27,7 @@ namespace api.Controllers {
             } else {
                 Variety newVariety = VarietyInfo.CreateVariety(varietyInfo.plantSpeciesId, varietyInfo.name);
                 if (newVariety.name.Equals(varietyInfo.name)) {
-                    return CreatedAtRoute("GetVariety", new { varietyInfo.id }, varietyInfo);
+                    return Ok();
                 }
             }
             return BadRequest();

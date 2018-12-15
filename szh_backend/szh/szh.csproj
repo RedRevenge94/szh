@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="cultivation\AvrDevice.cs" />
     <Compile Include="cultivation\CultivationAddModel.cs" />
+    <Compile Include="cultivation\notifications\Notification.cs" />
     <Compile Include="cultivation\plants\PlantSpecies.cs" />
     <Compile Include="cultivation\plants\PlantSpeciesInfo.cs" />
     <Compile Include="cultivation\plants\Variety.cs" />
@@ -53,10 +54,12 @@
     <Compile Include="dao\CultivationAddModel.cs" />
     <Compile Include="dao\CultivationInfo.cs" />
     <Compile Include="dao\CultivationInfoBasic.cs" />
+    <Compile Include="dao\NotificationAddModel.cs" />
     <Compile Include="dao\TunnelInfo.cs" />
     <Compile Include="dao\VarietyInfo.cs" />
     <Compile Include="Entity.cs" />
     <Compile Include="measurement\Measurements.cs" />
+    <Compile Include="measurement\MeasurementType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

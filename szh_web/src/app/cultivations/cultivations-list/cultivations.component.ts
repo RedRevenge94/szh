@@ -142,9 +142,9 @@ export class CultivationsComponent implements OnInit {
     this.addNewCultivationSubscription = this._cultivationInfoService.createCultivation(cultivation).subscribe(
       data => { },
       err => { this.responseIsOk = false; this.messageIsShowing = true; console.log(err);},
-      () => { this.responseIsOk = true; this.messageIsShowing = true; }
+      () => { this.responseIsOk = true; this.messageIsShowing = true; this.getCultivations();}
     );
-    this.getCultivations();
+    
   }
 
   onPlantSelectChange(plantSpeciesId){

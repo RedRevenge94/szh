@@ -100,9 +100,9 @@ export class TunnelsComponent implements OnInit {
     this.addNewTunnelSubscription = this._tunnelService.createTunnel(tunnelName.name).subscribe(
       data => { },
       err => { this.responseIsOk = false; this.messageIsShowing = true; },
-      () => { this.responseIsOk = true; this.messageIsShowing = true; }
+      () => { this.responseIsOk = true; this.messageIsShowing = true; this.getTunnels(); }
     );
-    this.getTunnels();
+    
   }
 
   showTunnelDetails(id) {

@@ -102,9 +102,8 @@ export class AvrdevicesComponent implements OnInit {
     this.addNewAvrDeviceSubscription = this._avrDeviceInfoService.createAvrDevice(avrDevice).subscribe(
       data => { },
       err => { this.responseIsOk = false; this.messageIsShowing = true; console.log(err);},
-      () => { this.responseIsOk = true; this.messageIsShowing = true; }
-    );
-    this.getAvrDevices();
+      () => { this.responseIsOk = true; this.messageIsShowing = true; this.getAvrDevices();}
+    );    
   }
 
 }
