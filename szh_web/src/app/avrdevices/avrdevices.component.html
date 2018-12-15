@@ -27,7 +27,7 @@
             <p class="sm">{{avrDevice.avrDevice.tunnel.name}}</p>
           </div>
           <div class="col">
-              <p class="sm" *ngIf="avrDevice.avrDevice.last_update != null">{{avrDevice.avrDevice.last_update | date:'yyyy-MM-dd hh:mm'}}</p>
+              <p class="sm" *ngIf="avrDevice.avrDevice.last_update != null">{{avrDevice.avrDevice.last_update | date:'yyyy-MM-dd HH:mm'}}</p>
               <p class="sm" *ngIf="avrDevice.avrDevice.last_update == null"> --- </p>
           </div>
           <div class="col">
