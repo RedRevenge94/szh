@@ -27,7 +27,7 @@ import { LoadingSpinnerComponent } from '../ui/loading-spinner/loading-spinner.c
 })
 export class AvrdevicesComponent implements OnInit {
 
-  private loadingSpinner: LoadingSpinnerComponent;
+  public loadingSpinner: LoadingSpinnerComponent;
 
   //getting data
   private intervalId;

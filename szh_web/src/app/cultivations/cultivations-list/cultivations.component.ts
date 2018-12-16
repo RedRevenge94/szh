@@ -30,7 +30,7 @@ import { LoadingSpinnerComponent } from '../../ui/loading-spinner/loading-spinne
 })
 export class CultivationsComponent implements OnInit {
 
-  private loadingSpinner: LoadingSpinnerComponent;
+  public loadingSpinner: LoadingSpinnerComponent;
 
   //getting data
   private intervalId;

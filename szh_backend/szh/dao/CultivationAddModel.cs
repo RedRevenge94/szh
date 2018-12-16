@@ -19,9 +19,17 @@ namespace szh.dao {
 
         public static Cultivation CreateCultivation(CultivationAddModel cultivation) {
 
-            pgSqlSingleManager.ExecuteSQL($"insert into cultivation.cultivation (name,plant,pieces,tunnel,start_date) " +
+            if (cultivation.varietyId == 0) {
+                pgSqlSingleManager.ExecuteSQL($"insert into cultivation.cultivation (name,plant,pieces,tunnel,start_date) " +
+                $"values ('{cultivation.name}', (select id from cultivation.plants where plant_species = {cultivation.plantSpeciesId} " +
+                $"and plant_variety is null) ,{cultivation.pieces},{cultivation.tunnelId},'{cultivation.start_date}')");
+            } else {
+                pgSqlSingleManager.ExecuteSQL($"insert into cultivation.cultivation (name,plant,pieces,tunnel,start_date) " +
                 $"values ('{cultivation.name}', (select id from cultivation.plants where plant_species = {cultivation.plantSpeciesId} " +
                 $"and plant_variety = {cultivation.varietyId}) ,{cultivation.pieces},{cultivation.tunnelId},'{cultivation.start_date}')");
+            }
+
+
             var cultivationResult = pgSqlSingleManager.ExecuteSQL($"select * from cultivation.cultivation where name = '{cultivation.name}'");
 
             Cultivation newCultivation = new Cultivation {

@@ -27,7 +27,7 @@ import { trigger,style,transition,animate,keyframes,query,stagger } from '@angul
 })
 export class PlantsViewComponent implements OnInit {
 
-  private loadingSpinner: LoadingSpinnerComponent;
+  public loadingSpinner: LoadingSpinnerComponent;
 
   plantSpecies;
   private getPlantsSubscription: ISubscription;

@@ -28,7 +28,7 @@ import { LoadingSpinnerComponent } from '../../ui/loading-spinner/loading-spinne
 })
 export class PlantsDetailsViewComponent implements OnInit {
 
-  private loadingSpinner: LoadingSpinnerComponent;
+  public loadingSpinner: LoadingSpinnerComponent;
 
   plantId;
   plant: Plant;

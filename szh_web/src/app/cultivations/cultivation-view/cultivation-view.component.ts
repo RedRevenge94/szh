@@ -30,7 +30,7 @@ import { LoadingSpinnerComponent } from '../../ui/loading-spinner/loading-spinne
 })
 export class CultivationViewComponent implements OnInit {
 
-  private loadingSpinner: LoadingSpinnerComponent;
+  public loadingSpinner: LoadingSpinnerComponent;
 
   private intervalId;
   private getCultivationsSubscription: ISubscription;

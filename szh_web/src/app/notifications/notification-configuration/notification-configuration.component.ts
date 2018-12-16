@@ -33,7 +33,7 @@ import { MeasurementsService } from '../../services/measurements.service';
 })
 export class NotificationConfigurationComponent implements OnInit {
 
-  private loadingSpinner: LoadingSpinnerComponent;
+  public loadingSpinner: LoadingSpinnerComponent;
 
   notifications :Notification[];
   tunnels :TunnelInfo[];

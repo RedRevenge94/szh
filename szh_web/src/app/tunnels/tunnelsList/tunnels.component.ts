@@ -27,7 +27,7 @@ import { LoadingSpinnerComponent } from '../../ui/loading-spinner/loading-spinne
 })
 export class TunnelsComponent implements OnInit {
 
-  private loadingSpinner: LoadingSpinnerComponent;
+  public loadingSpinner: LoadingSpinnerComponent;
 
   private intervalId;
   private getTunnelsSubscription: ISubscription;

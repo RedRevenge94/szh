@@ -27,6 +27,11 @@ namespace szh.cultivation.plants {
             pgSqlSingleManager.ExecuteSQL($"insert into cultivation.plant_species (name) values ('{name}')");
             var plantResult = pgSqlSingleManager.ExecuteSQL($"select * from cultivation.plant_species where name = '{name}'");
 
+            string addPlantQuery = $"insert into cultivation.plants (plant_species) " +
+                $"values ({Int32.Parse(plantResult[0]["id"])})";
+
+            pgSqlSingleManager.ExecuteSQL(addPlantQuery);
+
             PlantSpecies newPlant = new PlantSpecies {
                 id = Int32.Parse(plantResult[0]["id"]),
                 name = plantResult[0]["name"]
