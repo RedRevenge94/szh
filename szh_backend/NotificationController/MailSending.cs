@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Net.Mail;
 
-namespace DeviceDeviceController {
+namespace NotificationController {
     public class MailSending {
         MailMessage mail;
         SmtpClient smtp;

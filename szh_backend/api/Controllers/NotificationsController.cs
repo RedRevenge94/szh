@@ -9,7 +9,7 @@ namespace api.Controllers {
         // GET api/Notifications
         [HttpGet]
         public IActionResult Get() {
-            return new ObjectResult(Notification.GeNotifications());
+            return new ObjectResult(Notification.GetNotifications());
         }
 
         [HttpPost]

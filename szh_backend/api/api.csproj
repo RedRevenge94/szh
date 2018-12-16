@@ -25,6 +25,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DeviceController\DeviceController.csproj" />
+    <ProjectReference Include="..\NotificationController\NotificationController.csproj" />
     <ProjectReference Include="..\szh\szh.csproj" />
   </ItemGroup>
 

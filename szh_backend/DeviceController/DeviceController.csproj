@@ -64,7 +64,6 @@
     <Compile Include="BasicCommunication\CommunicationBase.cs" />
     <Compile Include="Getter\GetHello.cs" />
     <Compile Include="Getter\GetTemperature.cs" />
-    <Compile Include="MailSending.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SerialPortReader.cs" />

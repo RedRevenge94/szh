@@ -11,6 +11,7 @@ namespace szh.cultivation.notifications {
     public class Notification : Entity {
 
         #region -----------------DbValues-----------------
+        public int id;
         public Tunnel tunnel;
         public string condition;
         public string measurement_type;
@@ -20,7 +21,7 @@ namespace szh.cultivation.notifications {
         public bool isActive;
         #endregion
 
-        public static List<Notification> GeNotifications() =>
+        public static List<Notification> GetNotifications() =>
             GetNotifications($"select * from measurement.notifications");
 
         public static bool AddNotification(NotificationAddModel notification) {
@@ -50,6 +51,7 @@ namespace szh.cultivation.notifications {
 
             foreach (var notification in pgSqlSingleManager.ExecuteSQL(query)) {
                 Notification newNotification = new Notification() {
+                    id = Int32.Parse(notification["id"]),
                     condition = notification["condition"],
                     receivers = notification["receivers"],
                     repeat_after = Int32.Parse(notification["repeat_after"]),

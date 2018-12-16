@@ -52,16 +52,20 @@ namespace DbManager.Db {
 
         }
 
+        private static object _sync = new object();
+
         private static NpgsqlConnection GetNpgSqlConnection() {
 
-            if (npgsqlConnectionList == null) {
-                GetDbAccessData();
-                MakeConnectionString();
-                npgsqlConnectionList = new List<NpgsqlConnection>();
-                npgsqlConnectionList.Add(new NpgsqlConnection(connectionString));
-                npgsqlConnectionList[0].Open();
+            lock (_sync) {
+                if (npgsqlConnectionList == null) {
+                    GetDbAccessData();
+                    MakeConnectionString();
+                    npgsqlConnectionList = new List<NpgsqlConnection>();
+                    npgsqlConnectionList.Add(new NpgsqlConnection(connectionString));
+                    npgsqlConnectionList[0].Open();
+                }
+                return npgsqlConnectionList[0];
             }
-            return npgsqlConnectionList[0];
         }
 
         public static List<NameValueCollection> ExecuteSQL(string sql) {

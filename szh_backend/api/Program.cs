@@ -6,6 +6,7 @@ namespace api {
     public class Program {
         public static void Main(string[] args) {
             new Thread(() => DeviceController.Program.Main(null)).Start();
+            new Thread(() => NotificationController.Program.Main(null)).Start();
             BuildWebHost(args).Run();
         }
 
