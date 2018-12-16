@@ -4,6 +4,7 @@ import { ISubscription } from 'rxjs/Subscription';
 import { TunnelsService } from '../../services/tunnels.service';
 import { trigger,style,transition,animate,keyframes,query,stagger } from '@angular/animations';
 import { LoadingSpinnerComponent } from '../../ui/loading-spinner/loading-spinner.component';
+import { TunnelInfo } from '../../models/tunnelInfo.model';
 
 @Component({
   selector: 'app-tunnels',
@@ -33,7 +34,7 @@ export class TunnelsComponent implements OnInit {
   private getTunnelsSubscription: ISubscription;
   private addNewTunnelSubscription: ISubscription;
 
-  tunnels;
+  tunnels: TunnelInfo[];
   breedingShowingState: boolean[];
 
   displayedColumns: string[] = ['Id', 'Name', 'Plant', 'Pieces', 'Start date'];

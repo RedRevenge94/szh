@@ -109,6 +109,12 @@ namespace szh.measurement {
             pgSqlSingleManager.ExecuteSQL($"delete from measurement.measurements");
         }
 
+        public static double GetCurrentValue(int measurement_type, int tunnelId) {
+            return GetMeasurements($"select * from measurement.measurements where avr_device = " +
+                $"(select id from devices.avr_device where tunnel = {tunnelId} limit 1)" +
+                $" and measurement_type = {measurement_type} order by date_time desc limit 1 ")[0].value;
+        }
+
         private static List<Measurement> GetMeasurements(string query) {
             List<Measurement> measurements = new List<Measurement>();
 

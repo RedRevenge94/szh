@@ -16,7 +16,7 @@ export class TunnelsService {
   }
 
   getTunnelsInfo(){
-    return this.http.get<TunnelInfo>(ApiUrlConfigurator.GetApiUrl()  + '/TunnelsInfo');
+    return this.http.get<TunnelInfo[]>(ApiUrlConfigurator.GetApiUrl()  + '/TunnelsInfo');
   }
 
   getTemperatureForDateRange(tunnelId, dateRange){

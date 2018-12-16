@@ -5,11 +5,19 @@
 <span [@showingAnnimation] *ngIf="!loadingSpinner.loadingView">
     <div *ngFor="let tunnel of tunnels">
         <div  class="infoBoxContainer">
-            <div class="infoBoxHeader">{{tunnel.tunnel.name}}</div>
+            <div class="infoBoxHeader">{{tunnel.tunnel.name}}  <span *ngIf="tunnel.isAlarm">❗</span></div>
             <div class="infoBox">
             <div class="leftInfoBox">
                 Ilość hodowli: {{tunnel.cultivations.length}} <br />
-                Monitoring: {{tunnel.online}} <br />
+
+                <span *ngIf="!tunnel.online || tunnel.isAlarm">
+                    <hr />
+                    Uwagi: <br />
+                    <ul>
+                        <span *ngIf="!tunnel.online"><li>W tunelu nie działa urządzenie rejestrujące dane.</li></span>
+                        <span *ngIf="tunnel.isAlarm"><li>Co najmniej jedna z wartości granicznych została przekroczona.</li></span>
+                    </ul>
+                </span>
                 <p class="moreLink" (click)="showTunnelDetails(tunnel.tunnel.id)">Więcej...</p>
             </div>
         

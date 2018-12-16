@@ -7,6 +7,7 @@ export class TunnelInfo{
         public tunnel:Tunnel,
         public cultivations: Cultivation[],
         public online: boolean,
-        public temperature: number
+        public temperature: number,
+        public isAlarm: boolean
     ){}
 }

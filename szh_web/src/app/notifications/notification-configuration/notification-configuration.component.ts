@@ -106,9 +106,9 @@ export class NotificationConfigurationComponent implements OnInit {
     this.addNotificationSubscription = this._notificationService.addNotification(notification).subscribe(
       data => { },
       err => { this.responseIsOk = false; this.messageIsShowing = true; console.log(err);},
-      () => { this.responseIsOk = true; this.messageIsShowing = true; }
+      () => { this.responseIsOk = true; this.messageIsShowing = true; this.getNotifications(); }
     );
-    this.getNotifications();
+    
   }
 
   onShowTunnelDetails(tunnelId){
