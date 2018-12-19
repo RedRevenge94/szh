@@ -28,12 +28,12 @@ namespace NotificationController {
 
                             if ((currentDateTime - notificationSendDate[notification.id]).TotalMinutes > notification.repeat_after) {
 
-                                string messageText = $"Wysyłamy maila do {notification.receivers} bo w tunelu {notification.tunnel.name} wartość" +
+                                string messageText = $"W tunelu {notification.tunnel.name} wartość" +
                                 $" {notification.measurement_type} " +
                                 $"nie może byc mniejsze od {notification.value} a jest równe = {currentValue}";
 
                                 try {
-                                    new MailSending().sendMessage(messageText);
+                                    new MailSending(notification.receivers).sendMessage(messageText);
                                 } catch (Exception e) {
                                     Console.WriteLine(e);
                                 }
@@ -47,12 +47,12 @@ namespace NotificationController {
 
                             if ((currentDateTime - notificationSendDate[notification.id]).TotalMinutes > notification.repeat_after) {
 
-                                string messageText = $"Wysyłamy maila do {notification.receivers} bo w tunelu {notification.tunnel.name} wartość" +
+                                string messageText = $"W tunelu {notification.tunnel.name} wartość" +
                                 $" {notification.measurement_type} " +
                                 $"nie może byc większe od {notification.value} a jest równe = {currentValue}";
 
                                 try {
-                                    new MailSending().sendMessage(messageText);
+                                    new MailSending(notification.receivers).sendMessage(messageText);
                                 } catch (Exception e) {
                                     Console.WriteLine(e);
                                 }

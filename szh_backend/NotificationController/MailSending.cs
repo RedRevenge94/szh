@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net.Mail;
+using szh.configuraiton;
 
 namespace NotificationController {
     public class MailSending {
@@ -11,20 +12,32 @@ namespace NotificationController {
         private string hostAddres = "---";
         private int hostPort = 587;
 
-        public MailSending() {
+        public MailSending(string receivers) {
             mail = new MailMessage();
+            mailAddresTo = receivers;
+
+            LoadConfiguration();
+
             foreach (var address in mailAddresTo.Split(new[] { ";" }, StringSplitOptions.RemoveEmptyEntries)) {
                 mail.To.Add(address);
             }
             mail.From = new MailAddress(mailAddresFrom);
             mail.Subject = $"SZH - Backend Information";
             mail.IsBodyHtml = true;
-            smtp = new SmtpClient();
-            smtp.Port = hostPort;
-            smtp.UseDefaultCredentials = true;
-            smtp.Host = hostAddres;
-            smtp.Credentials = new System.Net.NetworkCredential(mailAddresFrom, password);
+            smtp = new SmtpClient
+            {
+                Port = hostPort,
+                Host = hostAddres,
+                Credentials = new System.Net.NetworkCredential(mailAddresFrom, password),
+                EnableSsl = true
+            };
         }
+
+        public void sendMessage(string title, string tekst) {
+            mail.Subject = title;
+            sendMessage(tekst);
+        }
+
         public void sendMessage(string tekst) {
             try {
                 //Attachment att = new Attachment($"{pathRaport}");
@@ -36,6 +49,13 @@ namespace NotificationController {
                 Console.WriteLine("Nie udało sie wysłać maila");
                 Console.WriteLine(e);
             }
+        }
+
+        private void LoadConfiguration() {
+            mailAddresFrom = NotificationSettings.GetSenderEmailAddress();
+            password = NotificationSettings.GetSenderEmailPassword();
+            hostAddres = NotificationSettings.GetSenderEmailHost();
+            Int32.TryParse(NotificationSettings.GetSenderEmailHostPort(), out hostPort);
         }
     }
 

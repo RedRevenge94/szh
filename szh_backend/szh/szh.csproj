@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="configuraiton\NotificationSettings.cs" />
     <Compile Include="cultivation\AvrDevice.cs" />
     <Compile Include="cultivation\CultivationAddModel.cs" />
     <Compile Include="cultivation\notifications\Notification.cs" />
