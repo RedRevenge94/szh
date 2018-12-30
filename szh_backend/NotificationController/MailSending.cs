@@ -33,12 +33,12 @@ namespace NotificationController {
             };
         }
 
-        public void sendMessage(string title, string tekst) {
+        public void SendMessage(string title, string tekst) {
             mail.Subject = title;
-            sendMessage(tekst);
+            SendMessage(tekst);
         }
 
-        public void sendMessage(string tekst) {
+        public void SendMessage(string tekst) {
             try {
                 //Attachment att = new Attachment($"{pathRaport}");
                 mail.Body = tekst;

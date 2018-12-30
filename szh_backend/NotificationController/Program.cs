@@ -33,7 +33,7 @@ namespace NotificationController {
                                 $"nie może byc mniejsze od {notification.value} a jest równe = {currentValue}";
 
                                 try {
-                                    new MailSending(notification.receivers).sendMessage(messageText);
+                                    new MailSending(notification.receivers).SendMessage(messageText);
                                 } catch (Exception e) {
                                     Console.WriteLine(e);
                                 }
@@ -52,7 +52,7 @@ namespace NotificationController {
                                 $"nie może byc większe od {notification.value} a jest równe = {currentValue}";
 
                                 try {
-                                    new MailSending(notification.receivers).sendMessage(messageText);
+                                    new MailSending(notification.receivers).SendMessage(messageText);
                                 } catch (Exception e) {
                                     Console.WriteLine(e);
                                 }

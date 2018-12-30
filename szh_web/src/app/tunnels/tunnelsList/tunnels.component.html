@@ -7,8 +7,45 @@
         <div  class="infoBoxContainer">
             <div class="infoBoxHeader">{{tunnel.tunnel.name}}  <span *ngIf="tunnel.isAlarm">❗</span></div>
             <div class="infoBox">
-            <div class="leftInfoBox">
+            <div class="leftInfoBox" (click)="showBreedings(tunnel.tunnel.id)">
                 Ilość hodowli: {{tunnel.cultivations.length}} <br />
+
+                <div class="tunnelInfoBreedings" *ngIf="breedingShowingState != null && breedingShowingState[tunnel.tunnel.id]">
+                    <div class="container color-dark">
+                        <div class="col" *ngFor="let col of displayedColumns">
+                          <p>{{col}}</p>
+                        </div>
+                    </div>
+                    <div *ngFor="let cultivation of tunnel.cultivations">
+                        <div class="container color-light">
+                            <div class="col">
+                                <p class="sm">
+                                    {{cultivation.id}}
+                                </p>
+                            </div>
+                            <div class="col">
+                                <p class="sm">
+                                    {{cultivation.name}}
+                                </p>
+                            </div>
+                            <div class="col">
+                                <p class="sm">
+                                    {{cultivation.plant.plantSpecies.name}}
+                                </p>
+                            </div>
+                            <div class="col">
+                                <p class="sm">
+                                    {{cultivation.pieces}} szt.
+                                </p>
+                            </div>
+                            <div class="col">
+                                <p class="sm">
+                                    {{cultivation.start_date | date:'yyyy-MM-dd'}}
+                                </p>
+                            </div>
+                        </div> 
+                    </div>
+                </div> 
 
                 <span *ngIf="!tunnel.online || tunnel.isAlarm">
                     <hr />

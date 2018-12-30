@@ -37,7 +37,7 @@ export class TunnelsComponent implements OnInit {
   tunnels: TunnelInfo[];
   breedingShowingState: boolean[];
 
-  displayedColumns: string[] = ['Id', 'Name', 'Plant', 'Pieces', 'Start date'];
+  displayedColumns: string[] = ['Id', 'Nazwa', 'Roślina', 'Ilość', 'Czas rozpoczęcia'];
 
   //Creating new tunnel
   newTunnelName: string;
