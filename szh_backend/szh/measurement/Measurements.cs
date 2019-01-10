@@ -29,6 +29,8 @@ namespace szh.measurement {
 
         public static List<Measurement> GetTemperatureInTunnel(int tunnelId, DateTime startDate, DateTime endDate) {
 
+            int differentBetweenMeasurement = 20;
+
             List<Measurement> measurements;
 
             foreach (var avrDevice in AvrDevice.GetAvrDevicesInTunnel(tunnelId)) {
@@ -52,7 +54,7 @@ namespace szh.measurement {
                             lastMeasurement = measurement;
                             isStart = false;
                         } else {
-                            if (Math.Abs((measurement.date_time - lastMeasurement.date_time).TotalMinutes) > 10) {
+                            if (Math.Abs((measurement.date_time - lastMeasurement.date_time).TotalMinutes) > differentBetweenMeasurement) {
                                 newMeasurementList.Add(measurement);
                                 lastMeasurement = measurement;
                             }

@@ -48,7 +48,7 @@ export class TunnelDetailsComponent implements OnInit {
 
     let date = new Date();
     this.endDateForm = date.toISOString().split('T')[0];
-    date.setDate(date.getDate() - 3);
+    date.setDate(date.getDate() - 1);
     this.startDateForm = date.toISOString().split('T')[0];
 
     this.getTemperature();

@@ -24,6 +24,7 @@ import { LoadingSpinnerComponent } from './ui/loading-spinner/loading-spinner.co
 import { NotificationConfigurationComponent } from './notifications/notification-configuration/notification-configuration.component';
 import { NotificationsService } from './services/notifications.service';
 import { MeasurementsService } from './services/measurements.service';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
