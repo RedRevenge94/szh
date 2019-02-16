@@ -82,11 +82,13 @@ export class TunnelDetailsComponent implements OnInit {
     this.getTemperatureSubscription = this._tunnelService.getTemperatureForDateRange(this.tunnelId,dateRange).subscribe(
       data => { 
         this.temperature = data.map(data => data.value);
+        
+        console.log("hello worlds"); 
         this.date  = data.map(data => data.date_time)
        },
       err => console.error('Erroren :' + err),
       () => {
-        this.makeTemperatureChart();        
+        this.makeTemperatureChart();       
       }
     );
   }

@@ -9,8 +9,8 @@ export class ApiUrlConfigurator{
         var serverAddress = spliited2[0].split(":",2);
         var ip = serverAddress[0];
         var port = serverAddress[1];
-        //return "http://" + ip + ":" + environment.API_Port + environment.API_Context;
-        return "http://" + "dev.zbiksoft.pl" + ":" + environment.API_Port + environment.API_Context;
+        return "http://" + ip + ":" + environment.API_Port + environment.API_Context;
+        //return "http://" + "dev.zbiksoft.pl" + ":" + environment.API_Port + environment.API_Context;
     }
 
 }

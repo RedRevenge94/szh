@@ -31,7 +31,7 @@ namespace szh.measurement {
 
             int differentBetweenMeasurement = 20;
 
-            List<Measurement> measurements;
+            List<Measurement> measurements = new List<Measurement>();
 
             foreach (var avrDevice in AvrDevice.GetAvrDevicesInTunnel(tunnelId)) {
 
@@ -66,7 +66,7 @@ namespace szh.measurement {
                 }
             }
 
-            return null;
+            return measurements;
         }
 
         #region AddMeasurement

@@ -103,7 +103,7 @@ export class CultivationViewComponent implements OnInit {
     this.addNewCultivationCommentSubscription = this._cultivationCommentService.createCultivationComment(comment).subscribe(
       data => { },
       err => { this.responseIsOk = false; this.messageIsShowing = true; console.log(err);},
-      () => { this.responseIsOk = true; this.messageIsShowing = true; this.getCultivationInfo();}
+      () => { this.responseIsOk = true; this.messageIsShowing = true; this.getCultivationInfo(); this.commentTextForm = ""}
     );
   }
 

@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Net.Mail;
+using   System.Net.Mail;
 using szh.configuraiton;
 
 namespace NotificationController {
