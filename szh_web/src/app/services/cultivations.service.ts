@@ -17,7 +17,7 @@ export class CultivationsService {
   }
 
   getCultivationsBasicInfo(){
-    return this.http.get<CultivationBasicInfo>(ApiUrlConfigurator.GetApiUrl()  + '/CultivationsInfo/basic');
+    return this.http.get<CultivationBasicInfo[]>(ApiUrlConfigurator.GetApiUrl()  + '/CultivationsInfo/basic');
   }
 
   createCultivation(cultivation){

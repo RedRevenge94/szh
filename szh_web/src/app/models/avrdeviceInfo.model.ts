@@ -2,8 +2,11 @@ import { AvrDevice } from "./avrDevice.model";
 
 export class AvrDeviceInfo{
 
-    constructor(
-        public avrDevice:AvrDevice,
-        public online: boolean
-    ){}
+    avrDevice: AvrDevice;
+    online: boolean;
+
+    constructor(_avrDevice:AvrDevice, _online: boolean){
+        this.avrDevice = _avrDevice;
+        this.online = _online;
+    }
 }

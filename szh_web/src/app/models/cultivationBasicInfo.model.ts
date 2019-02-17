@@ -1,4 +1,5 @@
 import { Cultivation } from "./cultivation.model";
+import { Plant } from "./plant.model";
 
 export class CultivationBasicInfo{
 
@@ -7,5 +8,6 @@ export class CultivationBasicInfo{
 
     constructor(
         
-    ){}
+    ){
+    }
 }

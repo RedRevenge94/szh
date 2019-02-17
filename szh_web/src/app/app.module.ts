@@ -24,7 +24,7 @@ import { LoadingSpinnerComponent } from './ui/loading-spinner/loading-spinner.co
 import { NotificationConfigurationComponent } from './notifications/notification-configuration/notification-configuration.component';
 import { NotificationsService } from './services/notifications.service';
 import { MeasurementsService } from './services/measurements.service';
-import { RouterModule } from '@angular/router';
+import { TableComponent } from './ui/table/table.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +38,8 @@ import { RouterModule } from '@angular/router';
     PlantsViewComponent,
     PlantsDetailsViewComponent,
     LoadingSpinnerComponent,
-    NotificationConfigurationComponent
+    NotificationConfigurationComponent,
+    TableComponent
   ],
   imports: [
     BrowserModule,

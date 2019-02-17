@@ -4,6 +4,11 @@ import { AvrDevicesService } from '../services/avrDevices.service';
 import { TunnelsService } from '../services/tunnels.service';
 import { trigger,style,transition,animate,keyframes,query,stagger } from '@angular/animations';
 import { LoadingSpinnerComponent } from '../ui/loading-spinner/loading-spinner.component';
+import { AvrDeviceInfo } from '../models/avrdeviceInfo.model';
+import { RowTable } from '../models/ui_models/rowTable.model';
+import { FieldTable, FieldTableType } from '../models/ui_models/fieldTable.model';
+import { TableComponent } from '../ui/table/table.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-avrdevices',
@@ -28,6 +33,7 @@ import { LoadingSpinnerComponent } from '../ui/loading-spinner/loading-spinner.c
 export class AvrdevicesComponent implements OnInit {
 
   public loadingSpinner: LoadingSpinnerComponent;
+  public ui_Table: TableComponent;
 
   //getting data
   private intervalId;
@@ -39,7 +45,7 @@ export class AvrdevicesComponent implements OnInit {
   avrDeviceTunnelForm;
 
 
-  avrDevices;
+  avrDevices:AvrDeviceInfo[];
   tunnels;
 
   //Creating new avr
@@ -48,10 +54,13 @@ export class AvrdevicesComponent implements OnInit {
 
   constructor(
     private _avrDeviceInfoService: AvrDevicesService,
-    private _tunnelsService: TunnelsService) { }
+    private _tunnelsService: TunnelsService,
+    private router: Router) { }
 
   ngOnInit() {
     this.loadingSpinner = new LoadingSpinnerComponent();
+    this.ui_Table = new TableComponent(this.router);
+    this.ui_Table.columns = ['Adres IP','Tunel','Ostatnia aktualizacja', 'Status'];
     this.getAvrDevices();
     this.getTunnels();
     this.intervalId = setInterval(() => { this.getAvrDevices(); }, 5000);
@@ -104,6 +113,28 @@ export class AvrdevicesComponent implements OnInit {
       err => { this.responseIsOk = false; this.messageIsShowing = true; console.log(err);},
       () => { this.responseIsOk = true; this.messageIsShowing = true; this.getAvrDevices();}
     );    
+  }
+
+  getTunnelDetailsLink(tunnelId){
+    return 'tunnels/' + tunnelId;
+  }
+
+  avrDeviceInfoArrayToRowArray(){
+    let arrayOfRows = new Array<RowTable>();
+
+    for (var v in this.avrDevices)
+        {  
+
+          let row = new Array<FieldTable>();
+          row.push(new FieldTable(this.avrDevices[v].avrDevice.ip,FieldTableType.text,""));
+          row.push(new FieldTable(this.avrDevices[v].avrDevice.tunnel.name,FieldTableType.textLink,
+                    this.getTunnelDetailsLink(this.avrDevices[v].avrDevice.tunnel.id)));
+          row.push(new FieldTable(this.avrDevices[v].avrDevice.last_update,FieldTableType.textDateLong,""));
+          row.push(new FieldTable(this.avrDevices[v].online,FieldTableType.onlineStatus,""));
+
+          arrayOfRows.push(new RowTable(row));
+        } 
+        return arrayOfRows;
   }
 
 }

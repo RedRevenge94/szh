@@ -1,0 +1,16 @@
+table{
+    width: 100%;
+    border-spacing: 0px;
+}
+
+tr:first-child{
+    padding: .4em 1.3em;
+    background: rgb(36, 40, 43);
+    color: #A5F883;
+    font-weight: bold;
+    border: 1px rgb(36, 40, 43) solid;
+}
+
+td{
+    text-align:center;
+}

@@ -12,7 +12,7 @@ export class AvrDevicesService {
   constructor(private http: HttpClient) {}
 
   getAvrDevicesInfo(){
-    return this.http.get<AvrDeviceInfo>(ApiUrlConfigurator.GetApiUrl()  + '/AvrDevicesInfo');
+    return this.http.get<AvrDeviceInfo[]>(ApiUrlConfigurator.GetApiUrl()  + '/AvrDevicesInfo');
   }
 
   createAvrDevice(avrDevice){

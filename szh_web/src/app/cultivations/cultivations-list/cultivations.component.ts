@@ -7,6 +7,10 @@ import { Router } from '@angular/router';
 import { VarietiesService } from '../../services/varieties.service';
 import { trigger,style,transition,animate,keyframes,query,stagger } from '@angular/animations';
 import { LoadingSpinnerComponent } from '../../ui/loading-spinner/loading-spinner.component';
+import { TableComponent } from '../../ui/table/table.component';
+import { CultivationBasicInfo } from '../../models/cultivationBasicInfo.model';
+import { RowTable } from '../../models/ui_models/rowTable.model';
+import { FieldTable, FieldTableType } from '../../models/ui_models/fieldTable.model';
 
 @Component({
   selector: 'app-cultivations',
@@ -31,6 +35,7 @@ import { LoadingSpinnerComponent } from '../../ui/loading-spinner/loading-spinne
 export class CultivationsComponent implements OnInit {
 
   public loadingSpinner: LoadingSpinnerComponent;
+  public ui_Table: TableComponent;
 
   //getting data
   private intervalId;
@@ -50,7 +55,7 @@ export class CultivationsComponent implements OnInit {
   plants;
   varieties;
   tunnels;
-  cultivations;
+  cultivations: CultivationBasicInfo[];
   cultivationCommentsShowingState: boolean[];
 
   //Creating new cultivation
@@ -67,6 +72,8 @@ export class CultivationsComponent implements OnInit {
 
   ngOnInit() {
     this.loadingSpinner = new LoadingSpinnerComponent();
+    this.ui_Table = new TableComponent(this.router);
+    this.ui_Table.columns = ['Nazwa','Roślina','Odmiana','Ilość','Tunel','Czas startu','Czas końca', 'Status'];
     this.getTunnels();
     this.getPlants();
     this.getCultivations();
@@ -109,6 +116,8 @@ export class CultivationsComponent implements OnInit {
         let executionTime = this.loadingSpinner.GetLoadingTime();
         if(executionTime < this.loadingSpinner.minLoadingTime){
           setTimeout(()=>{this.loadingSpinner.loadingView = false; }, this.loadingSpinner.minLoadingTime - executionTime)
+        } else{
+          this.loadingSpinner.loadingView = false;
         }
       }
     );
@@ -128,10 +137,6 @@ export class CultivationsComponent implements OnInit {
       err => console.error(err),
       () => {}
     )
-  }
-
-  showCutlivationComments(id) {
-    this.router.navigate(['cultivation/' + id]);
   }
 
   onAddNewCultivationSubmit(cultivation){
@@ -159,11 +164,44 @@ export class CultivationsComponent implements OnInit {
     )
   }
 
-  onPlantTunnelDetails(plantId){
-    this.router.navigate(['plants/' + plantId]);
+  getCutlivationDetailsLink(id) {
+    return 'cultivation/' + id;
   }
 
-  onShowTunnelDetails(tunnelId){
-    this.router.navigate(['tunnels/' + tunnelId]);
+  getPlantTunnelDetailsLink(plantId){
+    return 'plants/' + plantId;
+  }
+
+  getTunnelDetailsLink(tunnelId){
+    return 'tunnels/' + tunnelId;
+  }
+
+  cultivationBasicInfoArrayToRowArray(){
+
+    let arrayOfRows = new Array<RowTable>();
+
+    for (var v in this.cultivations)
+        {  
+
+          let row = new Array<FieldTable>();
+          row.push(new FieldTable(this.cultivations[v].cultivation.name,FieldTableType.textLink,
+                    this.getCutlivationDetailsLink(this.cultivations[v].cultivation.id)));
+          row.push(new FieldTable(this.cultivations[v].cultivation.plant.plantSpecies.name,FieldTableType.textLink,
+                    this.getPlantTunnelDetailsLink(this.cultivations[v].cultivation.plant.plantSpecies.id)));
+          row.push(new FieldTable("",FieldTableType.text,""));
+          row.push(new FieldTable(this.cultivations[v].cultivation.pieces,FieldTableType.text,""));
+          row.push(new FieldTable(this.cultivations[v].cultivation.tunnel.name,FieldTableType.textLink,
+                    this.getTunnelDetailsLink(this.cultivations[v].cultivation.tunnel.id)));
+          row.push(new FieldTable(this.cultivations[v].cultivation.start_date,FieldTableType.textDate,""));
+          row.push(new FieldTable(this.cultivations[v].cultivation.end_date,FieldTableType.textDate,""));
+          row.push(new FieldTable(this.cultivations[v].online,FieldTableType.onlineStatus,""));
+
+          if(this.cultivations[v].cultivation.plant.variety != null){
+            row[2][0] = this.cultivations[v].cultivation.plant.variety.name;
+          }
+
+          arrayOfRows.push(new RowTable(row));
+        } 
+    return arrayOfRows;
   }
 }

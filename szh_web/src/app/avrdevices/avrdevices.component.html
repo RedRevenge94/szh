@@ -4,38 +4,8 @@
 
 <span [@showingAnnimation] *ngIf="!loadingSpinner.loadingView">  
 
-    <div class="container color-dark">
-        <div class="col">
-          <p>Adres IP</p>
-        </div>
-        <div class="col">
-          <p>Tunel </p>
-        </div>
-        <div class="col">
-          <p>Ostatnia aktualizacja </p>
-        </div>
-        <div class="col">
-          <p>Status </p>
-        </div>
-      </div>
-      <div *ngFor="let avrDevice of avrDevices">
-        <div class="container color-light">
-          <div class="col">
-            <p class="sm">{{avrDevice.avrDevice.ip}}</p>
-          </div>
-          <div class="col">
-            <p class="sm">{{avrDevice.avrDevice.tunnel.name}}</p>
-          </div>
-          <div class="col">
-              <p class="sm" *ngIf="avrDevice.avrDevice.last_update != null">{{avrDevice.avrDevice.last_update | date:'yyyy-MM-dd HH:mm'}}</p>
-              <p class="sm" *ngIf="avrDevice.avrDevice.last_update == null"> --- </p>
-          </div>
-          <div class="col">
-            <p class="OnlineText" *ngIf="avrDevice.online">Online</p>
-            <p class="OfflineText" *ngIf="!avrDevice.online">Offline</p>
-          </div>
-        </div>
-      </div>
+    <app-table [columns] = ui_Table.columns [data] = avrDeviceInfoArrayToRowArray()>
+    </app-table>
     
     <div class="OnlineText" *ngIf="messageIsShowing && responseIsOk">
         <b>Urządzenie pomiarowe dodana prawidłowo</b>

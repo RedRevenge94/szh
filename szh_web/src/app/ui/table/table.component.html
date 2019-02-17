@@ -1,0 +1,44 @@
+<table>
+
+<tr>
+  <th *ngFor="let columnName of columns">
+    <p>{{columnName}}</p>
+  </th>
+</tr>
+
+<tr *ngFor="let row of data">
+  <td *ngFor="let field of row.rowContent" class="color-light">
+
+    <span *ngIf="field.value != null && field.value.toString() != ''">
+
+        <p class="sm" *ngIf="field.fieldType == 0">
+            {{field.value}}
+        </p>
+
+        <p class="sm" *ngIf="field.fieldType == 1">
+            <span class="moreLink" (click)="onNavigate(field.link)">
+                {{field.value}}
+             </span>
+        </p>
+
+        <p class="sm" *ngIf="field.fieldType == 2">
+            {{field.value | date:'yyyy-MM-dd'}}
+        </p>
+
+        <p class="sm" *ngIf="field.fieldType == 3">
+            {{field.value | date:'yyyy-MM-dd HH:mm'}}
+        </p>
+
+        <p class="sm" *ngIf="field.fieldType == 4">
+            <span class="OnlineText" *ngIf="field.value">Online</span>
+          <span class="OfflineText" *ngIf="!field.value">Offline</span>
+        </p>
+
+    </span>
+
+    <span *ngIf="field.value == null || field.value.toString() == ''">---</span>
+      
+  </td>
+</tr>
+
+</table>
