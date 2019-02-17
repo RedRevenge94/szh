@@ -10,6 +10,10 @@ import { TunnelsService } from '../../services/tunnels.service';
 import { TunnelInfo } from '../../models/tunnelInfo.model';
 import { MeasurementType } from '../../models/measurementType.model';
 import { MeasurementsService } from '../../services/measurements.service';
+import { TableComponent } from '../../ui/table/table.component';
+import { RowTable } from '../../models/ui_models/rowTable.model';
+import { FieldTable, FieldTableType } from '../../models/ui_models/fieldTable.model';
+import { NotificationInfo } from '../../models/notification.model';
 
 @Component({
   selector: 'app-notification-configuration',
@@ -34,8 +38,9 @@ import { MeasurementsService } from '../../services/measurements.service';
 export class NotificationConfigurationComponent implements OnInit {
 
   public loadingSpinner: LoadingSpinnerComponent;
+  public ui_Table: TableComponent;
 
-  notifications :Notification[];
+  notifications :NotificationInfo[];
   tunnels :TunnelInfo[];
   measurement_types: MeasurementType[];
 
@@ -57,6 +62,8 @@ export class NotificationConfigurationComponent implements OnInit {
 
   ngOnInit() {
     this.loadingSpinner = new LoadingSpinnerComponent();
+    this.ui_Table = new TableComponent(this.router);
+    this.ui_Table.columns = ['Tunel','Właściwość', 'Warunek', 'Wartość', 'Adresy email', 'Ponawiaj co', 'Aktywny'];
     this.getNotifications();
     this.getTunnels();
     this.getMeasurementTypes();
@@ -129,6 +136,31 @@ export class NotificationConfigurationComponent implements OnInit {
       err => console.error(err),
       () => {}
     )
+  }
+
+  getTunnelDetailsLink(tunnelId){
+    return 'tunnels/' + tunnelId;
+  }
+
+  notificationArrayToRowArray(){
+    let arrayOfRows = new Array<RowTable>();
+
+    for (var v in this.notifications)
+        {  
+
+          let row = new Array<FieldTable>();
+          row.push(new FieldTable(this.notifications[v].tunnel.name,FieldTableType.textLink,
+            this.getTunnelDetailsLink(this.notifications[v].tunnel.id)));
+          row.push(new FieldTable(this.notifications[v].measurement_type,FieldTableType.text,""));
+          row.push(new FieldTable(this.notifications[v].condition,FieldTableType.text,""));
+          row.push(new FieldTable(this.notifications[v].value,FieldTableType.text,""));
+          row.push(new FieldTable(this.notifications[v].receivers,FieldTableType.text,""));
+          row.push(new FieldTable(this.notifications[v].repeat_after,FieldTableType.text,""));
+          row.push(new FieldTable(this.notifications[v].isActive,FieldTableType.yesNoStatus,""));
+
+          arrayOfRows.push(new RowTable(row));
+        } 
+        return arrayOfRows;
   }
 
 }

@@ -1,6 +1,6 @@
 import { Tunnel } from "./tunnel.model";
 
-export class Notification{
+export class NotificationInfo{
 
     public tunnel: Tunnel;
     public condition: string;

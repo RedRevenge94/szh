@@ -3,7 +3,8 @@ export enum FieldTableType {
     textLink = 1,
     textDate = 2,
     textDateLong = 3,
-    onlineStatus = 4    
+    onlineStatus = 4,
+    yesNoStatus = 5
 }
 
 export class FieldTable {

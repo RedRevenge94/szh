@@ -34,6 +34,11 @@
           <span class="OfflineText" *ngIf="!field.value">Offline</span>
         </p>
 
+        <p class="sm" *ngIf="field.fieldType == 5">
+            <span class="OnlineText" *ngIf="field.value">Tak</span>
+            <span class="OfflineText" *ngIf="!field.value">Nie</span>
+        </p>
+
     </span>
 
     <span *ngIf="field.value == null || field.value.toString() == ''">---</span>
