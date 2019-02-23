@@ -3,9 +3,16 @@ import { CultivationComment } from "./cultivationComment.model";
 
 export class CultivationInfo{
 
-    constructor(
-        public cultivation: Cultivation,
-        public cultivationComments: CultivationComment[],
-        public online: boolean
-    ){}
+    cultivation: Cultivation;
+    cultivationComments: CultivationComment[];
+    online: boolean;
+
+    constructor(cultivation: Cultivation,
+        cultivationComments: CultivationComment[],
+        online: boolean
+    ){
+        this.cultivation = cultivation;
+        this.cultivationComments = cultivationComments;
+        this.online = online;
+    }
 }

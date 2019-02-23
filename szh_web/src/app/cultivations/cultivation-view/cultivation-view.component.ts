@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CultivationsService } from '../../services/cultivations.service';
 import { ISubscription } from 'rxjs/Subscription';
 import { CultivationCommentsService } from '../../services/cultivationComments.service';
@@ -7,6 +7,9 @@ import { CultivationInfo } from '../../models/cultivationInfo.model';
 import { TunnelsService } from '../../services/tunnels.service';
 import { trigger,style,transition,animate,keyframes,query,stagger } from '@angular/animations';
 import { LoadingSpinnerComponent } from '../../ui/loading-spinner/loading-spinner.component';
+import { TableComponent } from '../../ui/table/table.component';
+import { RowTable } from '../../models/ui_models/rowTable.model';
+import { FieldTable, FieldTableType } from '../../models/ui_models/fieldTable.model';
 
 @Component({
   selector: 'app-cultivation-view',
@@ -31,6 +34,7 @@ import { LoadingSpinnerComponent } from '../../ui/loading-spinner/loading-spinne
 export class CultivationViewComponent implements OnInit {
 
   public loadingSpinner: LoadingSpinnerComponent;
+  public ui_Table: TableComponent;
 
   private intervalId;
   private getCultivationsSubscription: ISubscription;
@@ -55,12 +59,15 @@ export class CultivationViewComponent implements OnInit {
   constructor(private route: ActivatedRoute,
     private _cultivationInfoService: CultivationsService,
     private _cultivationCommentService: CultivationCommentsService,
-    private _tunnelsService: TunnelsService) { 
+    private _tunnelsService: TunnelsService,
+    private router: Router) { 
     this.route.params.subscribe(res => this.cultivationId = res.id);
   }
 
   ngOnInit() {
     this.loadingSpinner = new LoadingSpinnerComponent();
+    this.ui_Table = new TableComponent(this.router);
+    this.ui_Table.columns = ['Treść','Data'];
     this.editMode = false;
     this.getCultivationInfo();
     this.getTunnels();
@@ -83,7 +90,6 @@ export class CultivationViewComponent implements OnInit {
   getCultivationInfo(){
 
     this.loadingSpinner.startLoadingDate = new Date();
-
     this.getCultivationsSubscription = this._cultivationInfoService.getCultivationInfo(this.cultivationId).subscribe(
       data => { this.cultivation = data },
       err => console.error('Erroren :' + err),
@@ -149,6 +155,21 @@ export class CultivationViewComponent implements OnInit {
       err => console.error(err),
       () => {}
     )
+  }
+
+  cultivationCommentArrayToRowArray(){
+
+    let arrayOfRows = new Array<RowTable>();
+
+    for (var v in this.cultivation.cultivationComments)
+        {  
+          let row = new Array<FieldTable>();
+          row.push(new FieldTable(this.cultivation.cultivationComments[v].text,FieldTableType.text,""));
+          row.push(new FieldTable(this.cultivation.cultivationComments[v].create_date,FieldTableType.textDate,""));
+
+          arrayOfRows.push(new RowTable(row));
+        } 
+    return arrayOfRows;
   }
 
 }

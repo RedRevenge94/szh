@@ -53,28 +53,9 @@
             
               </span>
 
-                  <div class="container color-dark">
-                      <div class="col">
-                        <p>Treść</p>
-                      </div>
-                      <div class="col">
-                        <p>Data </p>
-                      </div>
-                  </div>
-                  <div *ngFor="let comment of cultivation?.cultivationComments">
-                      <div class="container color-light">
-                          <div class="col">
-                              <p class="sm">
-                                  {{comment.text}}
-                              </p>
-                          </div>
-                          <div class="col">
-                              <p class="sm">
-                                  {{comment.create_date | date:'yyyy-MM-dd HH:mm'}}
-                              </p>
-                          </div>
-                      </div> 
-                  </div>
+              <app-table [columns] = ui_Table.columns [data] = cultivationCommentArrayToRowArray()>
+                </app-table>   
+
                   <div class="container color-light">
                       <form #cultivationCommentFormInfo="ngForm" (ngSubmit)="onAddNewCultivationCommentSubmit(cultivationCommentFormInfo.value)">
                         <div class="col">

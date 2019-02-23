@@ -2,8 +2,8 @@ export class CultivationComment {
 
     constructor(
         id: number,
-        text: string,
+        public text: string,
         cultivation: number,
-        create_date: Date
+        public create_date: Date
     ) { }
 }
