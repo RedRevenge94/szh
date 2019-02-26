@@ -25,6 +25,7 @@ import { NotificationConfigurationComponent } from './notifications/notification
 import { NotificationsService } from './services/notifications.service';
 import { MeasurementsService } from './services/measurements.service';
 import { TableComponent } from './ui/table/table.component';
+import { FrameComponent } from './ui/frame/frame.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { TableComponent } from './ui/table/table.component';
     PlantsDetailsViewComponent,
     LoadingSpinnerComponent,
     NotificationConfigurationComponent,
-    TableComponent
+    TableComponent,
+    FrameComponent
   ],
   imports: [
     BrowserModule,

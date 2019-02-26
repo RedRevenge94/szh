@@ -3,7 +3,11 @@
 </span>
 
 <span [@showingAnnimation] *ngIf="!loadingSpinner.loadingView">
+
+    <app-frame [data] = "tunnelsInfoArrayToRowArray()"></app-frame>
+
     <div *ngFor="let tunnel of tunnels">
+
         <div  class="infoBoxContainer">
             <div class="infoBoxHeader">{{tunnel.tunnel.name}}  <span *ngIf="tunnel.isAlarm">❗</span></div>
             <div class="infoBox">

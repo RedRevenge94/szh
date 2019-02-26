@@ -1,0 +1,43 @@
+<div *ngFor="let row of data">
+
+    <div  class="infoBoxContainer">
+
+        <div class="infoBoxHeader">{{row.title}}  <!--TU OD DOROBIENIA KWESTIA IKON DODATKOWYCH--></div>
+    
+        <div class="infoBox">
+    
+            <div class="leftInfoBox">
+                <span *ngFor="let field of row.rowLeftContent">
+
+                    <span *ngIf="field.fieldType == 0">
+                            {{field.value}}
+                    </span>
+
+                    <span *ngIf="field.fieldType == 1" class="moreLink" (click)="onNavigate(field.link)">
+                            {{field.value}}
+                    </span>
+                    <br />
+                </span>
+            </div>
+            <div class="rightInfoBox">
+                    <span *ngFor="let field of row.rowRightContent">
+
+                        <span *ngIf="field.value != null && field.value.toString() != ''">
+                                <span *ngIf="field.fieldType == 0 ">
+                                        {{field.value}}
+                                </span>
+            
+                                <span *ngIf="field.fieldType == 1" class="moreLink" (click)="onNavigate(field.link)">
+                                        {{field.value}}
+                                </span>
+                                <br />
+                        </span>
+                    </span>
+            </div>
+            <div style="clear: both;"></div>
+    
+        </div>
+    
+    </div>
+
+</div>

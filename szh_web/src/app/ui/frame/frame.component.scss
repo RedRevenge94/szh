@@ -1,0 +1,28 @@
+.tunnelInfo{
+    background-color: rgb(44, 149, 219);
+    padding: 15px;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+.tunnelInfo:hover{
+    background-color: #1D8BD5;
+}
+
+.tunnelInfoBreedings{
+    padding: 15px;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: 5% 20% 20% 20% 20%;
+}
+
+.rightInfoBox{
+    float: right;
+    font-size: 40px;
+}
+
+.leftInfoBox{
+    width: 80%
+}

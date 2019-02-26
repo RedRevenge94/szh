@@ -5,6 +5,9 @@ import { TunnelsService } from '../../services/tunnels.service';
 import { trigger,style,transition,animate,keyframes,query,stagger } from '@angular/animations';
 import { LoadingSpinnerComponent } from '../../ui/loading-spinner/loading-spinner.component';
 import { TunnelInfo } from '../../models/tunnelInfo.model';
+import { FrameComponent } from '../../ui/frame/frame.component';
+import { RowFrame } from '../../models/ui_models/rowFrame.model';
+import { FieldFrame, FieldFrameType } from '../../models/ui_models/fieldFrame.model';
 
 @Component({
   selector: 'app-tunnels',
@@ -29,6 +32,7 @@ import { TunnelInfo } from '../../models/tunnelInfo.model';
 export class TunnelsComponent implements OnInit {
 
   public loadingSpinner: LoadingSpinnerComponent;
+  public ui_Frames: FrameComponent;
 
   private intervalId;
   private getTunnelsSubscription: ISubscription;
@@ -50,6 +54,7 @@ export class TunnelsComponent implements OnInit {
 
   ngOnInit() {
     this.loadingSpinner = new LoadingSpinnerComponent();
+    this.ui_Frames = new FrameComponent(this.router);
     this.getTunnels();
     this.intervalId = setInterval(() => { this.getTunnels(); }, 5000);
   }
@@ -106,8 +111,35 @@ export class TunnelsComponent implements OnInit {
     
   }
 
-  showTunnelDetails(id) {
-    this.router.navigate(['tunnels/' + id]);
+  getTunnelDetailsLink(id) {
+    return 'tunnels/' + id;
+  }
+
+  tunnelsInfoArrayToRowArray(){
+
+    let arrayOfRows = new Array<RowFrame>();
+
+    for (var v in this.tunnels)
+        {  
+          let rowRight = new Array<FieldFrame>();
+          let rowLeft = new Array<FieldFrame>();
+
+          rowLeft.push(new FieldFrame("Ilość hodowli: " + this.tunnels[v].cultivations.length,FieldFrameType.text,""));
+          rowLeft.push(new FieldFrame("Więcej...",FieldFrameType.textLink, this.getTunnelDetailsLink(this.tunnels[v].tunnel.id)));
+
+          let temperature = "";
+          if(this.tunnels[v].temperature == null){
+            temperature = "---";
+          } else {
+            temperature = this.tunnels[v].temperature.toString();
+          }
+
+          rowRight.push(new FieldFrame(temperature + " °C",FieldFrameType.text,""));
+
+          arrayOfRows.push(new RowFrame(this.tunnels[v].tunnel.name,rowLeft,rowRight));
+        } 
+    return arrayOfRows;
+
   }
 
 }
