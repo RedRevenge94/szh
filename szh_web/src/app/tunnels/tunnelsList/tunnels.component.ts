@@ -8,6 +8,10 @@ import { TunnelInfo } from '../../models/tunnelInfo.model';
 import { FrameComponent } from '../../ui/frame/frame.component';
 import { RowFrame } from '../../models/ui_models/rowFrame.model';
 import { FieldFrame, FieldFrameType } from '../../models/ui_models/fieldFrame.model';
+import { TableComponent } from '../../ui/table/table.component';
+import { RowTable } from '../../models/ui_models/rowTable.model';
+import { FieldTable, FieldTableType } from '../../models/ui_models/fieldTable.model';
+import { RoutingComponent } from '../../ui/routing/routing.component';
 
 @Component({
   selector: 'app-tunnels',
@@ -117,15 +121,33 @@ export class TunnelsComponent implements OnInit {
 
   tunnelsInfoArrayToRowArray(){
 
-    let arrayOfRows = new Array<RowFrame>();
+    let arrayOfFrameRows = new Array<RowFrame>();
 
     for (var v in this.tunnels)
         {  
           let rowRight = new Array<FieldFrame>();
           let rowLeft = new Array<FieldFrame>();
 
-          rowLeft.push(new FieldFrame("Ilość hodowli: " + this.tunnels[v].cultivations.length,FieldFrameType.text,""));
-          rowLeft.push(new FieldFrame("Więcej...",FieldFrameType.textLink, this.getTunnelDetailsLink(this.tunnels[v].tunnel.id)));
+          let tableComponent = new TableComponent(this.router);
+          tableComponent.columns = ["Id","Nazwa uprawy","Roślina","Ilość","Data rozpoczęcia"];
+          
+          let arrayOfTableRows = new Array<RowTable>();
+          for (var c in this.tunnels[v].cultivations){
+            let row = new Array<FieldTable>();
+            row.push(new FieldTable(this.tunnels[v].cultivations[c].id,FieldTableType.text,""));
+            row.push(new FieldTable(this.tunnels[v].cultivations[c].name,FieldTableType.textLink,
+              RoutingComponent.getCutlivationDetailsLink(this.tunnels[v].cultivations[c].id)));
+            row.push(new FieldTable(this.tunnels[v].cultivations[c].plant.plantSpecies.name,FieldTableType.textLink,
+              RoutingComponent.getPlantTunnelDetailsLink(this.tunnels[v].cultivations[c].plant.plantSpecies.id)));
+            row.push(new FieldTable(this.tunnels[v].cultivations[c].pieces,FieldTableType.text,""));
+            row.push(new FieldTable(this.tunnels[v].cultivations[c].start_date,FieldTableType.textDate,""));
+            arrayOfTableRows.push(new RowTable(row));
+          }
+          tableComponent.data = arrayOfTableRows;
+
+          rowLeft.push(new FieldFrame("Hodowle (" + this.tunnels[v].cultivations.length + "): ",FieldFrameType.text,""));
+          rowLeft.push(new FieldFrame( tableComponent,FieldFrameType.tableComponent,""));
+          rowLeft.push(new FieldFrame("Szczegóły tunelu -> ",FieldFrameType.textLink, this.getTunnelDetailsLink(this.tunnels[v].tunnel.id)));
 
           let temperature = "";
           if(this.tunnels[v].temperature == null){
@@ -136,9 +158,15 @@ export class TunnelsComponent implements OnInit {
 
           rowRight.push(new FieldFrame(temperature + " °C",FieldFrameType.text,""));
 
-          arrayOfRows.push(new RowFrame(this.tunnels[v].tunnel.name,rowLeft,rowRight));
+          let alarmStringInfo = "";
+          if(this.tunnels[v].isAlarm){
+            alarmStringInfo = "❗";
+          }
+          let alarmInfo = new FieldFrame(alarmStringInfo,FieldFrameType.text,"");
+
+          arrayOfFrameRows.push(new RowFrame(this.tunnels[v].tunnel.name,rowLeft,rowRight,alarmInfo));
         } 
-    return arrayOfRows;
+    return arrayOfFrameRows;
 
   }
 

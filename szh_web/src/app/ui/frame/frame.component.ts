@@ -13,8 +13,7 @@ export class FrameComponent implements OnInit {
 
   constructor(private router: Router) { }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   onNavigate(path: string){
     this.router.navigate([path]);

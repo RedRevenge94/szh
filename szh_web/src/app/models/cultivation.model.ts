@@ -1,14 +1,14 @@
 import { Plant } from "./plant.model";
 import { Tunnel } from "./tunnel.model";
-import { Variety } from "./variety.model";
 
 export class Cultivation {
 
-    id: number;
-    name: string;
-    plant: Plant;
-    pieces: number;
-    tunnel: Tunnel;
-    start_date: Date;
-    end_date: Date;
+    public id: number;
+    public name: string;
+    public plant: Plant;
+    public pieces: number;
+    public tunnel: Tunnel;
+    public start_date: Date;
+    public end_date: Date;
+
 }

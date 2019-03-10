@@ -2,7 +2,7 @@
 
     <div  class="infoBoxContainer">
 
-        <div class="infoBoxHeader">{{row.title}}  <!--TU OD DOROBIENIA KWESTIA IKON DODATKOWYCH--></div>
+        <div class="infoBoxHeader">{{row.title}} {{row.alarmInfo.value}}</div>
     
         <div class="infoBox">
     
@@ -16,6 +16,13 @@
                     <span *ngIf="field.fieldType == 1" class="moreLink" (click)="onNavigate(field.link)">
                             {{field.value}}
                     </span>
+
+                    <span *ngIf="field.fieldType == 5">
+                        <br />
+                        <app-table [columns] = field.value.columns [data] = field.value.data>
+                        </app-table>
+                    </span>
+
                     <br />
                 </span>
             </div>

@@ -5,53 +5,11 @@
 <span [@showingAnnimation] *ngIf="!loadingSpinner.loadingView">
 
     <app-frame [data] = "tunnelsInfoArrayToRowArray()"></app-frame>
+    
+    
+<!-- Do uzupełnienia wyświetlanie alarmów
 
-    <div *ngFor="let tunnel of tunnels">
-
-        <div  class="infoBoxContainer">
-            <div class="infoBoxHeader">{{tunnel.tunnel.name}}  <span *ngIf="tunnel.isAlarm">❗</span></div>
-            <div class="infoBox">
-            <div class="leftInfoBox" (click)="showBreedings(tunnel.tunnel.id)">
-                Ilość hodowli: {{tunnel.cultivations.length}} <br />
-
-                <div class="tunnelInfoBreedings" *ngIf="breedingShowingState != null && breedingShowingState[tunnel.tunnel.id]">
-                    <div class="container color-dark">
-                        <div class="col" *ngFor="let col of displayedColumns">
-                          <p>{{col}}</p>
-                        </div>
-                    </div>
-                    <div *ngFor="let cultivation of tunnel.cultivations">
-                        <div class="container color-light">
-                            <div class="col">
-                                <p class="sm">
-                                    {{cultivation.id}}
-                                </p>
-                            </div>
-                            <div class="col">
-                                <p class="sm">
-                                    {{cultivation.name}}
-                                </p>
-                            </div>
-                            <div class="col">
-                                <p class="sm">
-                                    {{cultivation.plant.plantSpecies.name}}
-                                </p>
-                            </div>
-                            <div class="col">
-                                <p class="sm">
-                                    {{cultivation.pieces}} szt.
-                                </p>
-                            </div>
-                            <div class="col">
-                                <p class="sm">
-                                    {{cultivation.start_date | date:'yyyy-MM-dd'}}
-                                </p>
-                            </div>
-                        </div> 
-                    </div>
-                </div> 
-
-                <span *ngIf="!tunnel.online || tunnel.isAlarm">
+<span *ngIf="!tunnel.online || tunnel.isAlarm">
                     <hr />
                     Uwagi: <br />
                     <ul>
@@ -59,18 +17,9 @@
                         <span *ngIf="tunnel.isAlarm"><li>Co najmniej jedna z wartości granicznych została przekroczona.</li></span>
                     </ul>
                 </span>
-                <p class="moreLink" (click)="showTunnelDetails(tunnel.tunnel.id)">Więcej...</p>
-            </div>
-        
-            <div class="rightInfoBox">
-                <span *ngIf="tunnel.temperature != null">{{tunnel.temperature}} &#176; C</span>
-                <span *ngIf="tunnel.temperature == null">--- &#176; C</span>
-            </div>
-            <div style="clear: both;"></div>
-            </div>
-        </div>
-    </div>
-    
+
+-->
+
     <!-- Dodawanie nowego tunelu -->
     
     <div class="OnlineText" *ngIf="messageIsShowing && responseIsOk">

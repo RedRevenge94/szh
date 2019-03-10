@@ -11,6 +11,7 @@ import { TableComponent } from '../../ui/table/table.component';
 import { CultivationBasicInfo } from '../../models/cultivationBasicInfo.model';
 import { RowTable } from '../../models/ui_models/rowTable.model';
 import { FieldTable, FieldTableType } from '../../models/ui_models/fieldTable.model';
+import { RoutingComponent } from '../../ui/routing/routing.component';
 
 @Component({
   selector: 'app-cultivations',
@@ -140,7 +141,6 @@ export class CultivationsComponent implements OnInit {
   }
 
   onAddNewCultivationSubmit(cultivation){
-    console.log(cultivation);
     //cultivation.plant = this.plants.find(x => x.id == cultivation.plant)
     //cultivation.variety = this.varieties.find( x => x.id == cultivation.variety)
     //cultivation.tunnel = this.tunnels.find(x => x.id == cultivation.tunnel)
@@ -164,18 +164,6 @@ export class CultivationsComponent implements OnInit {
     )
   }
 
-  getCutlivationDetailsLink(id) {
-    return 'cultivation/' + id;
-  }
-
-  getPlantTunnelDetailsLink(plantId){
-    return 'plants/' + plantId;
-  }
-
-  getTunnelDetailsLink(tunnelId){
-    return 'tunnels/' + tunnelId;
-  }
-
   cultivationBasicInfoArrayToRowArray(){
 
     let arrayOfRows = new Array<RowTable>();
@@ -185,13 +173,13 @@ export class CultivationsComponent implements OnInit {
 
           let row = new Array<FieldTable>();
           row.push(new FieldTable(this.cultivations[v].cultivation.name,FieldTableType.textLink,
-                    this.getCutlivationDetailsLink(this.cultivations[v].cultivation.id)));
+              RoutingComponent.getCutlivationDetailsLink(this.cultivations[v].cultivation.id)));
           row.push(new FieldTable(this.cultivations[v].cultivation.plant.plantSpecies.name,FieldTableType.textLink,
-                    this.getPlantTunnelDetailsLink(this.cultivations[v].cultivation.plant.plantSpecies.id)));
+              RoutingComponent.getPlantTunnelDetailsLink(this.cultivations[v].cultivation.plant.plantSpecies.id)));
           row.push(new FieldTable("",FieldTableType.text,""));
           row.push(new FieldTable(this.cultivations[v].cultivation.pieces,FieldTableType.text,""));
           row.push(new FieldTable(this.cultivations[v].cultivation.tunnel.name,FieldTableType.textLink,
-                    this.getTunnelDetailsLink(this.cultivations[v].cultivation.tunnel.id)));
+              RoutingComponent.getTunnelDetailsLink(this.cultivations[v].cultivation.tunnel.id)));
           row.push(new FieldTable(this.cultivations[v].cultivation.start_date,FieldTableType.textDate,""));
           row.push(new FieldTable(this.cultivations[v].cultivation.end_date,FieldTableType.textDate,""));
           row.push(new FieldTable(this.cultivations[v].online,FieldTableType.onlineStatus,""));

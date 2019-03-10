@@ -1,6 +1,7 @@
 export enum FieldFrameType {
     text = 0,
-    textLink = 1
+    textLink = 1,
+    tableComponent = 5
 }
 
 export class FieldFrame {
